@@ -19,8 +19,8 @@ Toteutusteknologioita:
 - Jokin pilvipalvelu (Rahti, Render yms.)
 
 Jäseneiden GitHub linkit:
-- https://github.com/TopiRiihimaki
-- https://github.com/DeeDanger
-- https://github.com/thelatez
-- https://github.com/bhq718
-- https://github.com/JenniPenna
+- https://github.com/TopiRiihimaki (Topi Riihimäki)
+- https://github.com/DeeDanger (Nicholas Mononen)
+- https://github.com/thelatez (Lauri Rantala)
+- https://github.com/bhq718 (Sini Nykänen)
+- https://github.com/JenniPenna (Jenni Penna)
