@@ -15,6 +15,7 @@ Toiminnallisuuksia joita tulee olla:
 Toteutusteknologioita:
 - Spring boot
 - React
+- API
 - Jokin pilvipalvelu (Rahti, Render yms.)
 
 Jäseneiden GitHub linkit:
