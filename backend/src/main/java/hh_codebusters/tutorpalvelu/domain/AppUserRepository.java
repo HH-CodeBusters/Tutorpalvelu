@@ -1,9 +1,11 @@
 package hh_codebusters.tutorpalvelu.domain;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-@Repository
-public interface AppUserRepository extends CrudRepository<AppUser, Long> {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AppUserRepository extends JpaRepository<AppUser, Long> {
+    AppUser findByUsername(String username);
+    List<AppUser> findByIsTutor();
 
 }

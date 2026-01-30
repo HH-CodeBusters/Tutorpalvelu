@@ -1,6 +1,13 @@
 package hh_codebusters.tutorpalvelu.domain;
 
+import jakarta.persistence.*;
+
+
+@Entity
+@Table(name="UserTable")
 public class AppUser {
+
+
 
     private String firstname;
     private String lastname;
