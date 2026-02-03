@@ -22,8 +22,8 @@ public class AppUserRestController {
     }
 
     @GetMapping("/tutors")
-    public List<AppUser> tutorListRest() {
-        return (List<AppUser>) repository.findByIsTutor();
+    public List<AppUser> tutorListRest(boolean tutor) {
+        return (List<AppUser>) repository.findByTutorTrue(tutor);
     }
     
 }
