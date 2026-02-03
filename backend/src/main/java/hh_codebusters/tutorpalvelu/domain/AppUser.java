@@ -2,12 +2,13 @@ package hh_codebusters.tutorpalvelu.domain;
 
 import jakarta.persistence.*;
 
-
 @Entity
-@Table(name="UserTable")
+@Table(name = "UserTable")
 public class AppUser {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String firstname;
     private String lastname;
@@ -40,6 +41,14 @@ public class AppUser {
         this.school = school;
         this.tutor = tutor;
         this.parent = parent;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstname() {
