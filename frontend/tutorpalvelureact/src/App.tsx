@@ -1,33 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+//import { useState } from 'react'
 import './App.css'
+import { Link, Outlet } from "react-router";
+import { AppBar, Button, Container, CssBaseline, Toolbar, Typography } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 function App() {
-  const [count, setCount] = useState(0)
+  
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+     <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <Container maxWidth="lg">
+        <AppBar position="fixed">
+          <Toolbar>
+            <Typography>Tutorpalvelu</Typography>
+            <nav>
+              <Button color="inherit" component={Link} to={"/"} sx={{ "&:hover": { backgroundColor: "transparent", color: "inherit" }, textTransform: "none" }}>Home</Button>
+              <Button color="inherit" component={Link} to={"/tutors"} sx={{ "&:hover": { backgroundColor: "transparent", color: "inherit" }, textTransform: "none" }}>Tuutorit</Button>
+              <Button color="inherit" component={Link} to={"/calendar"} sx={{ "&:hover": { backgroundColor: "transparent", color: "inherit" }, textTransform: "none" }}>Kalenteri</Button>
+            </nav>
+          </Toolbar>
+        </AppBar>
+        <CssBaseline />
+      </Container>
+      <Outlet />
+      </LocalizationProvider>
     </>
   )
 }
