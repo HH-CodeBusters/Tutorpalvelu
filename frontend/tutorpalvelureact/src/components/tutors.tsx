@@ -1,3 +1,4 @@
+/*
 import React, { use, useEffect, useState } from 'react';
 import { type appUser } from '../types';
 import { getAppUsers } from '../appUserApi';
@@ -24,5 +25,8 @@ useEffect(() => {
     }, []);
   
   }
-
+*/
   //KESKEN//
+export default function Tutors() {
+  return(<h3>HEI!!!</h3>);
+}
