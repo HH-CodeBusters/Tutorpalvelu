@@ -1,32 +1,48 @@
-/*
+
 import React, { use, useEffect, useState } from 'react';
 import { type appUser } from '../types';
-import { getAppUsers } from '../appUserApi';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 
 
 export default function AppUser() {
   const [appUser, setappUser] = useState<appUser[]>([]);
+  
   useEffect(() => {
     fetch('http://localhost:8080/api/tutors')
-      .then((response) => response.json())
-      .then((data) => setappUser(data))
-      .catch((error) => console.error('Error fetching tutors:', error));
+      .then(response => response.json())
+      .then(data => {
+        console.log('Fetched data:', data);
+        setappUser(data);
+      })
+      .catch(err => console.error('Error fetching tutors:', err));
   }, []);
 
-   const fetchCustomers = () => {
-        getAppUsers()
-            .then(data => setappUser(data._embedded.customers))
-            .catch(err => console.error(err));
-    };
 
-useEffect(() => {
-        fetchCustomers();
-    }, []);
+
+  const columns: GridColDef[] = [
+    { field: 'firstname', headerName: 'First name', width: 130 },
+    { field: 'lastname', headerName: 'Last name', width: 130 },
+    { field: 'email', headerName: 'Email', width: 200 },
+    { field: 'phone', headerName: 'Phone', width: 150 },
+    {field: 'school', headerName: 'School', width: 150},
+    {field: 'city', headerName: 'City', width: 100},
+  ];
+  return (
+    <div style={{ height: 400, width: '100%' }}>
+      <DataGrid
+        rows={appUser}
+        columns={columns}
+        initialState={{
+          pagination: {
+            paginationModel: { pageSize: 5, page: 0 },
+          },
+        }}
+        pageSizeOptions={[5]}
+        checkboxSelection
+      />
+    </div>
+  );
   
   }
-*/
+
   //KESKEN//
-export default function Tutors() {
-  return(<h3>HEI!!!</h3>);
-}
