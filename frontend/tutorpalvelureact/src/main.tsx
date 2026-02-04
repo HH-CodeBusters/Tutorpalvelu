@@ -12,27 +12,27 @@ import './index.css';
 
 
 
- const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <App />,
-      children: [
-        {
-          element: <Home />,
-          index: true
-        },
-        {
-          path: "tutors",
-          element: <Tutors />,
-        },
-        {
-          path: "calendar",
-          element: <Calendar />,
-        },
-      ]
-    }
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        element: <Home />,
+        index: true
+      },
+      {
+        path: "tutors",
+        element: <Tutors />,
+      },
+      {
+        path: "calendar",
+        element: <Calendar />,
+      },
+    ]
+  }
 
-  ]);
+]);
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

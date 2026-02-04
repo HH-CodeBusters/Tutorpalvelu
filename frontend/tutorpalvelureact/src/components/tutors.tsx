@@ -6,7 +6,7 @@ import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 
 export default function AppUser() {
   const [appUser, setappUser] = useState<appUser[]>([]);
-  
+
   useEffect(() => {
     fetch('http://localhost:8080/api/tutors')
       .then(response => response.json())
@@ -24,8 +24,8 @@ export default function AppUser() {
     { field: 'lastname', headerName: 'Last name', width: 130 },
     { field: 'email', headerName: 'Email', width: 200 },
     { field: 'phone', headerName: 'Phone', width: 150 },
-    {field: 'school', headerName: 'School', width: 150},
-    {field: 'city', headerName: 'City', width: 100},
+    { field: 'school', headerName: 'School', width: 150 },
+    { field: 'city', headerName: 'City', width: 100 },
   ];
   return (
     <div style={{ height: 400, width: '100%' }}>
@@ -38,11 +38,9 @@ export default function AppUser() {
           },
         }}
         pageSizeOptions={[5]}
-       
       />
     </div>
   );
-  
-  }
 
-  //KESKEN//
+}
+

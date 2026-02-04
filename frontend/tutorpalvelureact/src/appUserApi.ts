@@ -7,4 +7,4 @@ export function getAppUsers() {
             }
             return response.json();
         })
-    }
+}
