@@ -38,7 +38,7 @@ export default function AppUser() {
           },
         }}
         pageSizeOptions={[5]}
-        checkboxSelection
+       
       />
     </div>
   );
