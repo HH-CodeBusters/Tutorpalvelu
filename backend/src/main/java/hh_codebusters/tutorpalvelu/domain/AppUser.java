@@ -1,11 +1,12 @@
 package hh_codebusters.tutorpalvelu.domain;
 
 import jakarta.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "UserTable")
 public class AppUser {
- @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
@@ -31,6 +32,11 @@ public class AppUser {
     private String school;
     private boolean tutor;
     private boolean parent;
+
+    @ManyToMany
+    @JoinTable(name = "tutor_subjects", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "subject_id"))
+
+    private Set<Subject> subjects;
 
     public AppUser() {
     }
@@ -175,5 +181,11 @@ public class AppUser {
         this.parent = parent;
     }
 
+    public Set<Subject> getSubjects() {
+        return subjects;
+    }
 
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = subjects;
+    }
 }
