@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     List<AppUser> findByTutorTrue(boolean tutor);
+     AppUser findByEmail(String email);
 }

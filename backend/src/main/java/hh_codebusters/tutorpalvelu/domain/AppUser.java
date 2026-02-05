@@ -41,10 +41,9 @@ public class AppUser {
     public AppUser() {
     }
 
-    public AppUser(Long id, String email, String passwordHash, String role, String firstname, String lastname,
+    public AppUser(String email, String passwordHash, String role, String firstname, String lastname,
             String phone, String address, String zipcode, String city, String gender, String ssn, String school,
             boolean tutor, boolean parent) {
-        this.id = id;
         this.email = email;
         this.passwordHash = passwordHash;
         this.role = role;
