@@ -11,4 +11,5 @@ export type appUser = {
     school: string;
     tutor: boolean;
     parent: boolean;
+    id: number;
 };
