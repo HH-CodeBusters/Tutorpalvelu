@@ -1,4 +1,4 @@
-package hh_codebusters.tutorpalvelu.corsconfig;
+package hh_codebusters.tutorpalvelu.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
