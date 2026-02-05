@@ -26,4 +26,9 @@ public class AppUserRestController {
         return (List<AppUser>) repository.findByTutorTrue(tutor);
     }
     
+    @GetMapping ("/tutors/{id}")
+    public AppUser findTutorRest(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+    
 }
