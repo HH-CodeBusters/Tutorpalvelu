@@ -26,6 +26,7 @@ export default function AppUser() {
     { field: 'phone', headerName: 'Phone', width: 150 },
     { field: 'school', headerName: 'School', width: 150 },
     { field: 'city', headerName: 'City', width: 100 },
+    { field: 'subjects', headerName: 'Subjects', width: 200, valueGetter: (params) => params.row.subjects?.map((subject: { name: string }) => subject.name).join(', ') || '' },
   ];
   return (
     <div style={{ height: 400, width: '100%' }}>
