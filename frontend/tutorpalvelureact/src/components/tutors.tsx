@@ -3,7 +3,7 @@ import React, { use, useEffect, useState } from 'react';
 import { type appUser } from '../types';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 
-
+// Tutoreiden listaaminen DataGridillä
 export default function AppUser() {
   const [appUser, setappUser] = useState<appUser[]>([]);
 
