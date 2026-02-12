@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 
@@ -27,7 +28,7 @@ public class AppUserRestController {
     }
     
     @GetMapping ("/tutors/{id}")
-    public AppUser findTutorRest(Long id) {
+    public AppUser findTutorRest(@PathVariable Long id) {
         return repository.findById(id).orElse(null);
     }
     

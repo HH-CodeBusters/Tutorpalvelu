@@ -14,12 +14,19 @@ public class TutorpalveluApplication {
 		SpringApplication.run(TutorpalveluApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner demo (AppUserRepository repository){
-		return (args) -> {
-			AppUser user1 = new AppUser("Tuomo", "Tutor", "+358415620247", "tuomo.tutor@gmail.com","Koulukatu 1 B 5", "00100", "Helsinki", "Male", "123234", "None", true, false);
-			repository.save(user1);
-			};
-	}
+@Bean
+public CommandLineRunner demo(AppUserRepository repository) {
+    return (args) -> {
 
+        AppUser user = new AppUser(null, "email", "pass", "ROLE_USER",
+            "John", "Doe",
+            "0401234567", "Street 1", "00100", "Helsinki",
+            "Male", "123456-789A", "Haaga-Helia",
+            true, false);
+
+        repository.save(user);
+    };
 }
+}
+
+
