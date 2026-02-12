@@ -43,7 +43,7 @@ public class AppUser {
 
     public AppUser(String email, String passwordHash, String role, String firstname, String lastname,
             String phone, String address, String zipcode, String city, String gender, String ssn, String school,
-            boolean tutor, boolean parent) {
+            boolean tutor, boolean parent, Set<Subject> subjects) {
         this.email = email;
         this.passwordHash = passwordHash;
         this.role = role;
@@ -58,6 +58,7 @@ public class AppUser {
         this.school = school;
         this.tutor = tutor;
         this.parent = parent;
+        this.subjects = subjects;
     }
 
     public Long getId() {

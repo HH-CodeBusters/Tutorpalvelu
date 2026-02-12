@@ -2,6 +2,7 @@ package hh_codebusters.tutorpalvelu.domain;
 
 import jakarta.persistence.*;
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Subject {
@@ -13,6 +14,7 @@ public class Subject {
     private String subjectname;
 
     @ManyToMany(mappedBy = "subjects")
+    @JsonIgnore
     private Set<AppUser> tutors;
 
     public Subject() {
