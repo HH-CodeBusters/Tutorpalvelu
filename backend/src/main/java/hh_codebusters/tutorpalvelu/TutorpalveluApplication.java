@@ -26,6 +26,7 @@ public class TutorpalveluApplication {
 			AppUser user1 = new AppUser("tuomo.tutor@gmail.com","$2a$10$vBc6lKz3fuT83xK2u.vg1.wU1gGJcO27O3FfchRsUZZ8OdBkPJf92","TUTOR", "Tuomo", "Tutor", "+358415620247","Koulukatu 1 B 5", "00100", "Helsinki", "Male", "123234", "None", true, false);
 			repository.save(user1);
 			};
+			//salasana on Tuomo12345
 	}
 
 }
