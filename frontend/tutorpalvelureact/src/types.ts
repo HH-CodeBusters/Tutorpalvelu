@@ -12,4 +12,5 @@ export type appUser = {
     tutor: boolean;
     parent: boolean;
     subjects?: { subjectname: string }[];
+    id: number;
 };
