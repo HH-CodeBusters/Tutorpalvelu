@@ -7,7 +7,6 @@ export type appUser = {
     zipcode: string;
     city: string;
     gender: string;
-    ssn: string;
     school: string;
     tutor: boolean;
     parent: boolean;

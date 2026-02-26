@@ -31,7 +31,7 @@ public class TutorpalveluApplication {
 			subjects.add(physics);
 
 			AppUser user1 = new AppUser("tuomo.tutor@gmail.com", "$2a$10$b/pkWuFlnv52E0L2f3eqa./NZYSYcVNkn.5URY7YQhT8n.6yu0QPO", "TUTOR", "Tuomo", "Tutor",
-					"+358415620247", "Koulukatu 1 B 5", "00100", "Helsinki", "Male", "120289-111N", null, true, false, subjects);
+					"+358415620247", "Koulukatu 1 B 5", "00100", "Helsinki", "Male", null, true, false, subjects);
 			repository.save(user1);
 		};
 	}

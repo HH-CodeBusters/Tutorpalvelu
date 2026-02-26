@@ -28,7 +28,6 @@ public class AppUser {
     private String zipcode;
     private String city;
     private String gender;
-    private String ssn;
     private String school;
     private boolean tutor;
     private boolean parent;
@@ -42,7 +41,7 @@ public class AppUser {
     }
 
     public AppUser(String email, String passwordHash, String role, String firstname, String lastname,
-            String phone, String address, String zipcode, String city, String gender, String ssn, String school,
+            String phone, String address, String zipcode, String city, String gender, String school,
             boolean tutor, boolean parent, Set<Subject> subjects) {
         this.email = email;
         this.passwordHash = passwordHash;
@@ -54,7 +53,6 @@ public class AppUser {
         this.zipcode = zipcode;
         this.city = city;
         this.gender = gender;
-        this.ssn = ssn;
         this.school = school;
         this.tutor = tutor;
         this.parent = parent;
@@ -147,14 +145,6 @@ public class AppUser {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public String getSsn() {
-        return ssn;
-    }
-
-    public void setSsn(String ssn) {
-        this.ssn = ssn;
     }
 
     public String getSchool() {
