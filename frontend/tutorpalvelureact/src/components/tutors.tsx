@@ -26,13 +26,14 @@ export default function AppUser() {
     { field: 'phone', headerName: 'Phone', width: 150 },
     { field: 'school', headerName: 'School', width: 150 },
     { field: 'city', headerName: 'City', width: 100 },
-    { field: 'subjects', headerName: 'Subjects', width: 200, valueGetter: (params) => params.row.subjects?.map((subject: { name: string }) => subject.name).join(', ') || '' },
+    { field: 'subjects', headerName: 'Subjects', width: 200, valueGetter: (params) => params.row?.subjects?.map((subject: { subjectname: string }) => subject.subjectname).join(', ') || '' },
   ];
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
         rows={appUser}
         columns={columns}
+        getRowId={(row) => row.id}
         initialState={{
           pagination: {
             paginationModel: { pageSize: 5, page: 0 },
