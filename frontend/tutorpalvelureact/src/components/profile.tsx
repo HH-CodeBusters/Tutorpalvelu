@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { type appUser } from "../types";
+import type { appUser } from "../types";
 
 export default function Profile() {
   const [user, setUser] = useState<appUser | null>(null);

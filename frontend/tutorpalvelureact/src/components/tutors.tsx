@@ -1,6 +1,5 @@
-
-import React, { use, useEffect, useState } from 'react';
-import { type appUser } from '../types';
+import { useEffect, useState } from 'react';
+import type { appUser } from '../types';
 import { DataGrid, type GridColDef } from '@mui/x-data-grid';
 
 // Tutoreiden listaaminen DataGridillä
@@ -17,8 +16,6 @@ export default function AppUser() {
       .catch(err => console.error('Error fetching tutors:', err));
   }, []);
 
-
-
   const columns: GridColDef[] = [
     { field: 'firstname', headerName: 'First name', width: 130 },
     { field: 'lastname', headerName: 'Last name', width: 130 },
@@ -26,8 +23,9 @@ export default function AppUser() {
     { field: 'phone', headerName: 'Phone', width: 150 },
     { field: 'school', headerName: 'School', width: 150 },
     { field: 'city', headerName: 'City', width: 100 },
-    { field: 'subjects', headerName: 'Subjects', width: 200, valueGetter: (params) => params.row?.subjects?.map((subject: { subjectname: string }) => subject.subjectname).join(', ') || '' },
+    { field: 'subjects', headerName: 'Subjects', width: 200, valueGetter: (params: any) => params.row?.subjects?.map((subject: { subjectname: string }) => subject.subjectname).join(', ') || '' },
   ];
+
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid
@@ -43,6 +41,4 @@ export default function AppUser() {
       />
     </div>
   );
-
 }
-
