@@ -13,3 +13,17 @@ export type appUser = {
     subjects?: { subjectname: string }[];
     id: number;
 };
+
+export interface Appointment {
+  id: string
+  tutorId: string
+  customerName: string
+  start: string
+  end: string
+}
+
+export interface Availability {
+  tutorId: string
+  start: string
+  end: string
+}
