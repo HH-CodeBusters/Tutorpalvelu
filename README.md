@@ -24,3 +24,6 @@ Jäseneiden GitHub linkit:
 - https://github.com/thelatez (Lauri Rantala)
 - https://github.com/bhq718 (Sini Nykänen)
 - https://github.com/JenniPenna (Jenni Penna)
+
+Pilvipalvelun (Rahti) linkki:
+https://tutorpalvelu-tutorpalvelu.2.rahtiapp.fi/
