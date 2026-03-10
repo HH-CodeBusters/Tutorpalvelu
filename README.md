@@ -25,5 +25,8 @@ Jäseneiden GitHub linkit:
 - https://github.com/bhq718 (Sini Nykänen)
 - https://github.com/JenniPenna (Jenni Penna)
 
-Pilvipalvelun (Rahti) linkki:
+Pilvipalvelun linkki (Rahti):
 https://tutorpalvelu-tutorpalvelu.2.rahtiapp.fi/
+Pilvipalvelun linkki (vercel)
+https://tutorpalvelu.vercel.app/
+
