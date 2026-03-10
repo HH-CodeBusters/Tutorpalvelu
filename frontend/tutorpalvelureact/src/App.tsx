@@ -16,7 +16,7 @@ function App() {
             <Toolbar>
               <Typography>Tutorpalvelu</Typography>
               <nav>
-                <Button color="inherit" component={Link} to={"/"} sx={{ "&:hover": { backgroundColor: "transparent", color: "inherit" }, textTransform: "none" }}>Home</Button>
+                <Button color="inherit" component={Link} to={"/"} sx={{ "&:hover": { backgroundColor: "transparent", color: "inherit" }, textTransform: "none" }}>Etusivu</Button>
                 <Button color="inherit" component={Link} to={"/tutors"} sx={{ "&:hover": { backgroundColor: "transparent", color: "inherit" }, textTransform: "none" }}>Tuutorit</Button>
                 <Button color="inherit" component={Link} to={"/calendar"} sx={{ "&:hover": { backgroundColor: "transparent", color: "inherit" }, textTransform: "none" }}>Kalenteri</Button>
                 <Button color="inherit" component={Link} to={"/profile"} sx={{ "&:hover": { backgroundColor: "transparent", color: "inherit" }, textTransform: "none" }}>Oma profiili</Button>
