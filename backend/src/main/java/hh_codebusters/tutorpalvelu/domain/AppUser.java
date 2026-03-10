@@ -2,6 +2,7 @@ package hh_codebusters.tutorpalvelu.domain;
 
 import jakarta.persistence.*;
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "UserTable")
@@ -16,6 +17,7 @@ public class AppUser {
     private String email;
 
     @Column(name = "password", nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String passwordHash;
 
     @Column(name = "role", nullable = false)
