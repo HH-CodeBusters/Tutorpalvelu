@@ -111,6 +111,16 @@ export default function AppUser() {
               <Typography sx={{ wordBreak: "break-word" }}>
                 📱 {tutor.phone}
               </Typography>
+              <Typography
+                sx={{
+                  wordBreak: "break-word",
+                  color: "#57884d",
+                }}
+              >
+                {tutor.subjects
+                  ?.map((subject) => subject.subjectname)
+                  .join(", ")}
+              </Typography>
             </CardContent>
           </Card>
         </Grid>

@@ -1,0 +1,40 @@
+/* Calendar container */
+
+.calendar-container {
+  width: 90vw;
+  height: 80vh;
+}
+.fc {
+  font-family: Inter, sans-serif;
+}
+
+/* Toolbar (header) */
+.fc-toolbar-title {
+  font-family: "inter", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #164506;
+}
+
+/* Buttons */
+.fc-button {
+  background-color: #7bf163;
+  border: none;
+  border-radius: 8px;
+}
+
+.fc-button:hover {
+  background-color: #149b5c;
+}
+
+/* Day cells */
+.fc-daygrid-day {
+  background: #fafafa;
+}
+
+/* Event styling */
+.fc-event {
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-size: 13px;
+}
