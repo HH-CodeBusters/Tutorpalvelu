@@ -8,6 +8,7 @@ import Calendar from './components/calendar.tsx';
 import Home from './components/home.tsx';
 import Profile from './components/profile.tsx';
 import Register from './components/register.tsx';
+import Login from './components/login.tsx';
 //import React from 'react';
 //import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       { 
         path: "register",
         element: <Register />,
+      },
+      { 
+        path: "login",
+        element: <Login />,
       },
     ]
   }
