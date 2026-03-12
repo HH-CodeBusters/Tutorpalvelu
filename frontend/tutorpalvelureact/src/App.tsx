@@ -105,8 +105,23 @@ function App() {
                       color: "#fff",
                     },
                   }}
+
+
                 >
                   Oma profiili
+                </Button>
+
+
+                <Button
+                  color="inherit" component={Link} to={"/register"} sx={{
+                    mx: 1,
+                    textTransform: 500, "&:hover": {
+                      backgroundColor: "#6f8f69",
+                      color: "#fff"
+                    },
+                  }}
+                >
+                  Rekisteröidy
                 </Button>
               </nav>
             </Toolbar>
