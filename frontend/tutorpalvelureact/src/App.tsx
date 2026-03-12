@@ -55,7 +55,7 @@ function App() {
                     },
                   }}
                 >
-                  Home
+                  Etusivu
                 </Button>
 
                 <Button
