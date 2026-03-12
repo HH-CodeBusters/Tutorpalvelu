@@ -7,6 +7,7 @@ import Tutors from './components/tutors.tsx'
 import Calendar from './components/calendar.tsx';
 import Home from './components/home.tsx';
 import Profile from './components/profile.tsx';
+import Register from './components/register.tsx';
 //import React from 'react';
 //import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       { 
         path: "profile",
         element: <Profile />,
+      },
+      { 
+        path: "register",
+        element: <Register />,
       },
     ]
   }
