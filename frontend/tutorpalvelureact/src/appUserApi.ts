@@ -33,3 +33,30 @@ export function registerUser(data: RegistrationData) {
 			return response.json();
 		})
 }
+
+export interface LoginCredentials {
+	email: string;
+	password: string;
+}
+
+export function loginUser(email: string, password: string) {
+	const credentials: LoginCredentials = {
+		email,
+		password
+	};
+
+	return fetch('http://localhost:8080/api/login', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		credentials: 'include',
+		body: JSON.stringify(credentials)
+	})
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error('Invalid email or password');
+			}
+			return response.json();
+		})
+}
