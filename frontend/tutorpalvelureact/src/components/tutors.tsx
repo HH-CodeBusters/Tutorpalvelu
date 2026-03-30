@@ -54,7 +54,7 @@ export default function AppUser() {
 
 import { useEffect, useState } from "react";
 import type { appUser } from "../types";
-import { Card, CardContent, Typography, Chip, Box } from "@mui/material";
+import { Card, CardContent, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
 export default function AppUser() {

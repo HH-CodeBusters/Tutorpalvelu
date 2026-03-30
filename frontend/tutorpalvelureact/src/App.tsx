@@ -124,6 +124,19 @@ function App() {
                 >
                   Rekisteröidy
                 </Button>
+
+                <Button
+                  color="inherit" component={Link} to={"/login"} sx={{
+                    mx: 1,
+                    textTransform: 500, "&:hover": {
+                      backgroundColor: "#6f8f69",
+                      color: "#fff"
+                    },
+                  }}
+                >
+                  KIRJAUDU
+                </Button>
+
               </nav>
             </Toolbar>
           </Container>
