@@ -1,5 +1,5 @@
 //import { useState } from 'react'
-import "./App.css";
+import "./styles.css";
 import { Link, Outlet } from "react-router";
 import {
   AppBar,
@@ -105,19 +105,20 @@ function App() {
                       color: "#fff",
                     },
                   }}
-
-
                 >
                   Oma profiili
                 </Button>
 
-
                 <Button
-                  color="inherit" component={Link} to={"/register"} sx={{
+                  color="inherit"
+                  component={Link}
+                  to={"/register"}
+                  sx={{
                     mx: 1,
-                    textTransform: 500, "&:hover": {
+                    textTransform: 500,
+                    "&:hover": {
                       backgroundColor: "#6f8f69",
-                      color: "#fff"
+                      color: "#fff",
                     },
                   }}
                 >
