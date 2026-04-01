@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { loginUser } from "../appUserApi";
-
+import "../styles.css";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +19,9 @@ export default function Login() {
       // TODO: Store token when authentication is implemented
       // TODO: Redirect to dashboard or home page
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Login failed. Please try again.");
+      setError(
+        err instanceof Error ? err.message : "Login failed. Please try again.",
+      );
     } finally {
       setLoading(false);
     }
