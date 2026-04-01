@@ -40,6 +40,8 @@ export default function Calendar() {
         selectable={true}
         events={events}
         select={handleSelect}
+        height="100%"
+        expandRows={true}
       />
     </div>
   );

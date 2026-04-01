@@ -45,6 +45,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -153,14 +154,15 @@ button:focus-visible {
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 1rem;
 }
 
 .calendar-container {
   width: 90vw;
   height: 80vh;
+  margin: 0 auto;
 }
+
 .fc {
   font-family: Inter, sans-serif;
 }
