@@ -1,64 +1,77 @@
 import { useState } from "react";
-import { loginUser } from "../appUserApi";
+import { Typography, Button, Box, TextField, Alert } from "@mui/material";
+import { Link, useNavigate } from "react-router";
+
+import { login } from "../services/user";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const [error, setError] = useState();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
+  function handleSubmitLogin(event: any) {
+    event.preventDefault();
 
-    try {
-      const response = await loginUser(email, password);
-      // Handle successful login
-      console.log("Login successful:", response);
-      // TODO: Store token when authentication is implemented
-      // TODO: Redirect to dashboard or home page
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Login failed. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+    login({ email, password })
+      .then(() => {
+        navigate("/");
+        window.location.reload();
+      })
+      .catch((error: any) => {
+        if (error.response.data) {
+          setError(error.response.data.message);
+        }
+      });
+  }
 
   return (
-    <div className="login-container">
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit} className="login-form">
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
+    <>
+      <Typography variant="h4" component="h1" sx={{ marginBottom: 2 }}>
+        Kirjaudu
+      </Typography>
+      {error && (
+        <Alert
+          severity="error"
+          sx={{ marginBottom: 2 }}
+          onClose={() => setError(undefined)}
+        >
+          {error}
+        </Alert>
+      )}
+      <form onSubmit={handleSubmitLogin}>
+        <Box sx={{ marginBottom: 2 }}>
+          <TextField
+            label="Sähköposti"
+            variant="outlined"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(event) => setEmail(event.target.value)}
             required
-            disabled={loading}
+            fullWidth
           />
-        </div>
+        </Box>
 
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
+        <Box sx={{ marginBottom: 2 }}>
+          <TextField
+            label="Salasana"
             type="password"
-            id="password"
+            variant="outlined"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(event) => setPassword(event.target.value)}
             required
-            disabled={loading}
+            fullWidth
           />
-        </div>
+        </Box>
 
-        {error && <div className="error-message">{error}</div>}
-
-        <button type="submit" disabled={loading}>
-          {loading ? "Logging in..." : "Login"}
-        </button>
+        <Box>
+          <Button type="submit" variant="contained" sx={{ marginRight: 1 }}>
+            Kirjaudu
+          </Button>
+          <Button component={Link} to="/">
+            Peruuta
+          </Button>
+        </Box>
       </form>
-    </div>
+    </>
   );
 }
