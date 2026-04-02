@@ -1,6 +1,5 @@
 package hh_codebusters.tutorpalvelu.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +13,6 @@ import hh_codebusters.tutorpalvelu.domain.*;
 
 @Controller
 public class AppUserController {
-
-	// @Autowired
 	private AppUserRepository repository;
 
 	public AppUserController(AppUserRepository repository) {
@@ -35,17 +32,16 @@ public class AppUserController {
 
 	@RequestMapping(value = "saveuser", method = RequestMethod.POST)
 	public String save(@Valid @ModelAttribute("signupform") SignUpForm signupForm, BindingResult bindingResult) {
-		if (!bindingResult.hasErrors()) { // validation errors
-			if (signupForm.getPassword().equals(signupForm.getPasswordCheck())) { // check password match
+		if (!bindingResult.hasErrors()) {
+			if (signupForm.getPassword().equals(signupForm.getPasswordCheck())) {
 				String pwd = signupForm.getPassword();
 				BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
 				String hashPwd = bc.encode(pwd);
-
 				AppUser newUser = new AppUser();
 				newUser.setPasswordHash(hashPwd);
 				newUser.setEmail(signupForm.getEmail());
 				newUser.setRole("USER");
-				if (repository.findByEmail(signupForm.getEmail()) == null) { // Check if user exists
+				if (repository.findByEmail(signupForm.getEmail()) == null) {
 					repository.save(newUser);
 				} else {
 					bindingResult.rejectValue("username", "err.username", "Username already exists");
