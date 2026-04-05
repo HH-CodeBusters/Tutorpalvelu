@@ -1,5 +1,5 @@
 package hh_codebusters.tutorpalvelu.domain;
-
+/* 
 import jakarta.persistence.*;
 import java.util.Set;
 
@@ -43,3 +43,4 @@ public class Appointment {
     }
 
 }
+*/
