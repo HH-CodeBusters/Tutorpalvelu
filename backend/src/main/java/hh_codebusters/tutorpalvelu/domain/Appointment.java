@@ -1,5 +1,5 @@
 package hh_codebusters.tutorpalvelu.domain;
-/* 
+ 
 import jakarta.persistence.*;
 import java.util.Set;
 
@@ -10,37 +10,55 @@ import hh_codebusters.tutorpalvelu.domain.AppUser;
 
 @Entity
 public class Appointment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
+    private Long id;
 
-    private String customerName;
-    private String start;
-    private String end;
+    private String startTime;
+    private String endTime;
 
-    public String getCustomerName() {
-        return customerName;
+    public Long getId() {
+        return id;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+
+    public String getStartTime() {
+        return startTime;
     }
 
-    public String getStart() {
-        return start;
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
-    public void setStart(String start) {
-        this.start = start;
+
+    public String getEndTime() {
+        return endTime;
     }
 
-    public String getEnd() {
-        return end;
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
-    public void setEnd(String end) {
-        this.end = end;
+
+    public AppUser getUser() {
+        return user;
     }
 
+
+    public void setUser(AppUser user) {
+        this.user = user;
+    }
+
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private AppUser user;
+
+    
+    public String getUserEmail() {
+    return user != null ? user.getEmail() : null;
 }
-*/
+}
