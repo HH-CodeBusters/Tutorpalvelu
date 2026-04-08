@@ -39,6 +39,10 @@ public class AppUser {
 
     private Set<Subject> subjects;
 
+    
+    @OneToMany(mappedBy = "user")
+    private Set<Appointment> appointments;
+
     public AppUser() {
     }
 
