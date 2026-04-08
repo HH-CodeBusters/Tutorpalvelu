@@ -1,7 +1,11 @@
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import type { DateSelectArg, EventInput } from "@fullcalendar/core";
+import type {
+  DateSelectArg,
+  EventInput,
+  DateSpanApi,
+} from "@fullcalendar/core";
 import fiLocale from "@fullcalendar/core/locales/fi";
 import { useEffect, useState } from "react";
 import "../styles.css";
@@ -16,6 +20,17 @@ export default function Calendar() {
       .then((res) => res.json())
       .then((data) => setEvents(data));
   }, []);
+
+  // Sallitaan vain 1-3 tunnin varaukset
+  const selectAllow = (info: DateSpanApi) => {
+    const start = new Date(info.startStr);
+    const end = new Date(info.endStr);
+
+    const durationMs = end.getTime() - start.getTime();
+    const durationHours = durationMs / (1000 * 60 * 60);
+
+    return durationHours >= 1 && durationHours <= 3;
+  };
 
   const handleSelect = (info: DateSelectArg) => {
     setSelectedSlot(info);
@@ -54,12 +69,17 @@ export default function Calendar() {
         locale="fi"
         firstDay={1}
         selectable={!selectedSlot}
-        events={events}
+        selectAllow={selectAllow}
         select={handleSelect}
+        events={events}
         height="100%"
         expandRows={true}
+        allDaySlot={false}
         slotMinTime="07:00:00"
         slotMaxTime="21:00:00"
+        // Valinnat tunnin välein
+        slotDuration="01:00:00"
+        snapDuration="01:00:00"
         businessHours={{
           startTime: "07:00",
           endTime: "21:00",
@@ -75,6 +95,7 @@ export default function Calendar() {
           day: "Päivä",
         }}
       />
+
       {selectedSlot && (
         <div className="modal">
           <div className="modal-content">
@@ -98,6 +119,7 @@ export default function Calendar() {
                 minute: "2-digit",
               })}
             </p>
+
             <input
               className="modal-input"
               type="text"

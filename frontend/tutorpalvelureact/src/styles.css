@@ -169,27 +169,60 @@ button:focus-visible {
 }
 
 /* Toolbar (header) */
-.fc-toolbar-title {
-  font-family: "inter", sans-serif;
-  font-size: 24px;
-  font-weight: 600;
-  color: #164506;
+.fc-toolbar {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
 }
 
+.fc-toolbar-title {
+  font-family: Inter, sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #164506;
+}
 /* Buttons */
 .fc-button {
-  background-color: #7bf163;
+  background: #7bf163;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
+  padding: 6px 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
 .fc-button:hover {
-  background-color: #149b5c;
+  background: #149b5c;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.fc-button:active {
+  transform: scale(0.96);
 }
 
 /* Day cells */
 .fc-daygrid-day {
   background: #fafafa;
+}
+.fc-day-today {
+  background: #e8ffe5 !important;
+  border-left: 2px solid #7bf163;
+  border-right: 2px solid #7bf163;
+}
+.fc-timegrid-slot {
+  height: 50px;
+}
+
+.fc-timegrid-axis {
+  color: #666;
+  font-size: 13px;
+}
+.fc-timegrid-col {
+  background: #fafafa;
+}
+
+.fc-timegrid-col:hover {
+  background: #f5fff3;
 }
 
 /* Event styling */
