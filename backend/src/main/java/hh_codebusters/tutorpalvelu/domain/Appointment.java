@@ -2,11 +2,13 @@ package hh_codebusters.tutorpalvelu.domain;
  
 import jakarta.persistence.*;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import hh_codebusters.tutorpalvelu.domain.AppUser;
+
 
 @Entity
 public class Appointment {
@@ -18,6 +20,13 @@ public class Appointment {
     private String startTime;
     private String endTime;
 
+    @ManyToMany
+    @JoinTable(
+    name = "appointment_users",
+    joinColumns = @JoinColumn(name = "appointment_id"),
+    inverseJoinColumns = @JoinColumn(name = "user_id")
+)
+private Set<AppUser> users;
     public Long getId() {
         return id;
     }
@@ -25,6 +34,16 @@ public class Appointment {
 
     public String getStartTime() {
         return startTime;
+    }
+
+
+    public Set<AppUser> getUsers() {
+        return users;
+    }
+
+
+    public void setUsers(Set<AppUser> users) {
+        this.users = users;
     }
 
 
@@ -43,22 +62,13 @@ public class Appointment {
     }
 
 
-    public AppUser getUser() {
-        return user;
-    }
+    
 
-
-    public void setUser(AppUser user) {
-        this.user = user;
-    }
-
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private AppUser user;
 
     
-    public String getUserEmail() {
-    return user != null ? user.getEmail() : null;
+    public Set<String> getUserEmails() {
+    return users.stream()
+            .map(AppUser::getEmail)
+            .collect(Collectors.toSet());
 }
 }

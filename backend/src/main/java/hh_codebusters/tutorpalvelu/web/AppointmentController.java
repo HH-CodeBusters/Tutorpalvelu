@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import hh_codebusters.tutorpalvelu.domain.*;
 
 @RestController
-@RequestMapping("/appointments")
+@RequestMapping("/api")
 public class AppointmentController {
 
     private final AppointmentRepository appointmentRepository;
@@ -19,7 +19,7 @@ public class AppointmentController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping
+    @GetMapping("/appointments")
     public List<Appointment> getAll() {
         return appointmentRepository.findAll();
     }
