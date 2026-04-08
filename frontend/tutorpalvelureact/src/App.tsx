@@ -1,18 +1,32 @@
-//import { useState } from 'react'
-import "./styles.css";
+import { useState, useEffect } from 'react'
+import { getAuthenticatedUser, logout } from './services/user';
 import { Link, Outlet } from "react-router";
-import {
-  AppBar,
-  Button,
-  Container,
-  CssBaseline,
-  Toolbar,
-  Typography,
-} from "@mui/material";
+import { AppBar, Button, Container, CssBaseline, Toolbar, Typography } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import "./styles.css";
 
 function App() {
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    // Try to load authenticated user on mount
+    getAuthenticatedUser()
+      .then((userData) => {
+        if (userData) {
+          setUser(userData);
+        }
+      })
+      .catch(() => {
+        setUser(null);
+      })
+  }, []);
+
+  const handleLogout = () => {
+    logout();
+    setUser(null);
+  };
+
   return (
     <>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -92,51 +106,51 @@ function App() {
                   Kalenteri
                 </Button>
 
-                <Button
-                  color="inherit"
-                  component={Link}
-                  to="/profile"
-                  sx={{
-                    mx: 1,
-                    textTransform: "none",
-                    fontWeight: 500,
-                    "&:hover": {
-                      backgroundColor: "#6f8f69",
-                      color: "#fff",
-                    },
-                  }}
-                >
-                  Oma profiili
-                </Button>
-
-                <Button
-                  color="inherit"
-                  component={Link}
-                  to={"/register"}
-                  sx={{
-                    mx: 1,
-                    textTransform: 500,
-                    "&:hover": {
-                      backgroundColor: "#6f8f69",
-                      color: "#fff",
-                    },
-                  }}
-                >
-                  Rekisteröidy
-                </Button>
-
-                <Button
-                  color="inherit" component={Link} to={"/login"} sx={{
-                    mx: 1,
-                    textTransform: 500, "&:hover": {
-                      backgroundColor: "#6f8f69",
-                      color: "#fff"
-                    },
-                  }}
-                >
-                  KIRJAUDU
-                </Button>
-
+                {user ? (
+                  <>
+                    {/*<Typography sx={{ mx: 1 }}>Hello, {user.firstname}</Typography>*/}
+                    <Button
+                      color="inherit"
+                      onClick={handleLogout}
+                      sx={{
+                        mx: 1,
+                        textTransform: "none",
+                        fontWeight: 500,
+                        "&:hover": {
+                          backgroundColor: "#6f8f69",
+                          color: "#fff",
+                        }
+                      }}
+                    >
+                      Kirjaudu ulos
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button color="inherit" component={Link} to="/register" sx={{
+                      mx: 1,
+                      textTransform: "none",
+                      fontWeight: 500,
+                      "&:hover": {
+                        backgroundColor: "#6f8f69",
+                        color: "#fff",
+                      }
+                    }}>
+                      Rekisteröidy
+                    </Button>
+                    <Button color="inherit" component={Link} to="/login" sx={{
+                      mx: 1,
+                      textTransform: "none",
+                      fontWeight: 500,
+                      "&:hover": {
+                        backgroundColor: "#6f8f69",
+                        color: "#fff",
+                      }
+                    }}>
+                      Kirjaudu
+                    </Button>
+                  </>
+                )}
               </nav>
             </Toolbar>
           </Container>

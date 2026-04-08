@@ -3,19 +3,17 @@ package hh_codebusters.tutorpalvelu.service;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-
 import java.nio.charset.StandardCharsets;
 import javax.crypto.SecretKey;
 import java.time.Duration;
 import java.time.Instant;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
-
-import hh_codebusters.tutorpalvelu.dto.AccessTokenPayloadDto;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Date;
+
+import hh_codebusters.tutorpalvelu.dto.AccessTokenPayloadDto;
 
 @Service
 public class JwtService {
@@ -25,13 +23,14 @@ public class JwtService {
 	@Value("${auth.jwt-secret}")
 	private String jwtSecret;
 
-	public AccessTokenPayloadDto getAccessToken(String username) {
+	public AccessTokenPayloadDto getAccessToken(String email) {
 		Instant expiresAt = Instant.now().plusMillis(EXPIRATION_TIME);
 
-		String accessToken = Jwts.builder().subject(username).expiration(Date.from(expiresAt))
+		String accessToken = Jwts.builder()
+				.subject(email)
+				.expiration(Date.from(expiresAt))
 				.signWith(getSigningKey())
 				.compact();
-
 		return new AccessTokenPayloadDto(accessToken, expiresAt);
 	}
 
@@ -47,7 +46,6 @@ public class JwtService {
 					.parseSignedClaims(authorizationHeaderValue.replace(PREFIX, ""))
 					.getPayload()
 					.getSubject();
-
 			return user;
 		} catch (Exception e) {
 			return null;

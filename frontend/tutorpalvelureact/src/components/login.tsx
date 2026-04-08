@@ -19,8 +19,8 @@ export default function Login() {
         window.location.reload();
       })
       .catch((error: any) => {
-        if (error.response.data) {
-          setError(error.response.data.message);
+        if (error.response?.data?.detail) {
+          setError(error.response.data.detail);
         }
       });
   }
@@ -43,6 +43,7 @@ export default function Login() {
         <Box sx={{ marginBottom: 2 }}>
           <TextField
             label="Sähköposti"
+            type="email"
             variant="outlined"
             value={email}
             onChange={(event) => setEmail(event.target.value)}

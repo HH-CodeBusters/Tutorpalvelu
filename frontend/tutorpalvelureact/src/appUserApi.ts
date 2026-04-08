@@ -1,5 +1,7 @@
+const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8080";
+
 export function getAppUsers() {
-	return fetch('http://localhost:8080/api/tutors')
+	return fetch(`${API_URL}/api/tutors`)
 		.then((response) => {
 			if (!response.ok) {
 				throw new Error('Network response was not ok');
@@ -19,7 +21,7 @@ export interface RegistrationData {
 }
 
 export function registerUser(data: RegistrationData) {
-	return fetch('http://localhost:8080/api/register', {
+	return fetch(`${API_URL}/api/register`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -45,7 +47,7 @@ export function loginUser(email: string, password: string) {
 		password
 	};
 
-	return fetch('http://localhost:8080/api/login', {
+	return fetch(`${API_URL}/api/auth/login`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
