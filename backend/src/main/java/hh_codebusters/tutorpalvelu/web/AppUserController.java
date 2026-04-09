@@ -27,7 +27,7 @@ public class AppUserController {
 	}
 
 	@RequestMapping(value = "/signup")
-	public String addStudent(Model model) {
+	public String addUser(Model model) {
 		model.addAttribute("signupform", new SignUpForm());
 		return "signup";
 	}
