@@ -2,15 +2,13 @@ import { useState } from "react";
 import { loginUser } from "../appUserApi";
 import "../styles.css";
 export default function Login() {
+  const navigate = useNavigate();
+  const [error, setError] = useState();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
+  function handleSubmitLogin(event: any) {
+    event.preventDefault();
 
     try {
       const response = await loginUser(email, password);
@@ -28,39 +26,53 @@ export default function Login() {
   };
 
   return (
-    <div className="login-container">
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit} className="login-form">
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
+    <>
+      <Typography variant="h4" component="h1" sx={{ marginBottom: 2 }}>
+        Kirjaudu
+      </Typography>
+      {error && (
+        <Alert
+          severity="error"
+          sx={{ marginBottom: 2 }}
+          onClose={() => setError(undefined)}
+        >
+          {error}
+        </Alert>
+      )}
+      <form onSubmit={handleSubmitLogin}>
+        <Box sx={{ marginBottom: 2 }}>
+          <TextField
+            label="Sähköposti"
             type="email"
-            id="email"
+            variant="outlined"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(event) => setEmail(event.target.value)}
             required
-            disabled={loading}
+            fullWidth
           />
-        </div>
+        </Box>
 
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
+        <Box sx={{ marginBottom: 2 }}>
+          <TextField
+            label="Salasana"
             type="password"
-            id="password"
+            variant="outlined"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(event) => setPassword(event.target.value)}
             required
-            disabled={loading}
+            fullWidth
           />
-        </div>
+        </Box>
 
-        {error && <div className="error-message">{error}</div>}
-
-        <button type="submit" disabled={loading}>
-          {loading ? "Logging in..." : "Login"}
-        </button>
+        <Box>
+          <Button type="submit" variant="contained" sx={{ marginRight: 1 }}>
+            Kirjaudu
+          </Button>
+          <Button component={Link} to="/">
+            Peruuta
+          </Button>
+        </Box>
       </form>
-    </div>
+    </>
   );
 }
