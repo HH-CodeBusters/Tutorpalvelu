@@ -1,5 +1,5 @@
 package hh_codebusters.tutorpalvelu.domain;
- 
+
 import jakarta.persistence.*;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import hh_codebusters.tutorpalvelu.domain.AppUser;
 
-
 @Entity
 public class Appointment {
 
@@ -17,58 +16,53 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String startTime;
-    private String endTime;
+    private String title;
+    private String start;
+    private String end;
 
     @ManyToMany
-    @JoinTable(
-    name = "appointment_users",
-    joinColumns = @JoinColumn(name = "appointment_id"),
-    inverseJoinColumns = @JoinColumn(name = "user_id")
-)
-private Set<AppUser> users;
+    @JoinTable(name = "appointment_users", joinColumns = @JoinColumn(name = "appointment_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<AppUser> users;
+
     public Long getId() {
         return id;
     }
 
-
-    public String getStartTime() {
-        return startTime;
+    public String getTitle() {
+        return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getStart() {
+        return start;
+    }
+
+    public void setStart(String start) {
+        this.start = start;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
+    public void setEnd(String end) {
+        this.end = end;
+    }
 
     public Set<AppUser> getUsers() {
         return users;
     }
 
-
     public void setUsers(Set<AppUser> users) {
         this.users = users;
     }
 
-
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
-    }
-
-
-    public String getEndTime() {
-        return endTime;
-    }
-
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
-
-
-    
-
-
-    
     public Set<String> getUserEmails() {
-    return users.stream()
-            .map(AppUser::getEmail)
-            .collect(Collectors.toSet());
-}
+        return users.stream()
+                .map(AppUser::getEmail)
+                .collect(Collectors.toSet());
+    }
 }
