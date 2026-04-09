@@ -1,9 +1,6 @@
 import { useState } from "react";
-import { Typography, Button, Box, TextField, Alert } from "@mui/material";
-import { Link, useNavigate } from "react-router";
-
-import { login } from "../services/user";
-
+import { loginUser } from "../appUserApi";
+import "../styles.css";
 export default function Login() {
   const navigate = useNavigate();
   const [error, setError] = useState();
@@ -13,17 +10,20 @@ export default function Login() {
   function handleSubmitLogin(event: any) {
     event.preventDefault();
 
-    login({ email, password })
-      .then(() => {
-        navigate("/");
-        window.location.reload();
-      })
-      .catch((error: any) => {
-        if (error.response?.data?.detail) {
-          setError(error.response.data.detail);
-        }
-      });
-  }
+    try {
+      const response = await loginUser(email, password);
+      // Handle successful login
+      console.log("Login successful:", response);
+      // TODO: Store token when authentication is implemented
+      // TODO: Redirect to dashboard or home page
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Login failed. Please try again.",
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>

@@ -1,14 +1,14 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router';
-import './index.css'
-import App from './App.tsx'
-import Tutors from './components/tutors.tsx'
-import Calendar from './components/calendar.tsx';
-import Home from './components/home.tsx';
-import Profile from './components/profile.tsx';
-import Register from './components/register.tsx';
-import Login from './components/login.tsx';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router";
+import "./styles.css";
+import App from "./App.tsx";
+import Tutors from "./components/tutors.tsx";
+import Calendar from "./components/calendar.tsx";
+import Home from "./components/home.tsx";
+import Profile from "./components/profile.tsx";
+import Register from "./components/register.tsx";
+import Login from "./components/login.tsx";
 //import React from 'react';
 //import ReactDOM from 'react-dom/client';
 
@@ -37,13 +37,12 @@ const router = createBrowserRouter([
         path: "register",
         element: <Register />,
       },
-      { 
+      {
         path: "login",
         element: <Login />,
       },
-    ]
-  }
-
+    ],
+  },
 ]);
 
 createRoot(document.getElementById("root")!).render(

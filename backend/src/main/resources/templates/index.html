@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <div class="index-container">
+        <h2>Hei <span th:text="${name}">Nimi</span>!</h2>
+        <p>Kirjautuminen onnistui.</p>
+        
+        <a th:href="@{/appointments}">Ajanvaraukset</a>
+        <form th:action="@{/logout}" method="post" style="display: inline;">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+</body>
+</html>

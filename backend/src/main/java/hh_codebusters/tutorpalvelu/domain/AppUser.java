@@ -39,6 +39,10 @@ public class AppUser {
 
     private Set<Subject> subjects;
 
+    
+   @ManyToMany(mappedBy = "users")
+private Set<Appointment> appointments;
+
     public AppUser() {
     }
 
