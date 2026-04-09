@@ -1,6 +1,9 @@
 import { useState } from "react";
-import { loginUser } from "../appUserApi";
-import "../styles.css";
+import { Typography, Button, Box, TextField, Alert } from "@mui/material";
+import { Link, useNavigate } from "react-router";
+
+import { login } from "../services/user";
+
 export default function Login() {
   const navigate = useNavigate();
   const [error, setError] = useState();
@@ -10,20 +13,17 @@ export default function Login() {
   function handleSubmitLogin(event: any) {
     event.preventDefault();
 
-    try {
-      const response = await loginUser(email, password);
-      // Handle successful login
-      console.log("Login successful:", response);
-      // TODO: Store token when authentication is implemented
-      // TODO: Redirect to dashboard or home page
-    } catch (err) {
-      setError(
-        err instanceof Error ? err.message : "Login failed. Please try again.",
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+    login({ email, password })
+      .then(() => {
+        navigate("/");
+        window.location.reload();
+      })
+      .catch((error: any) => {
+        if (error.response.data) {
+          setError(error.response.data.message);
+        }
+      });
+  }
 
   return (
     <>
@@ -43,7 +43,6 @@ export default function Login() {
         <Box sx={{ marginBottom: 2 }}>
           <TextField
             label="Sähköposti"
-            type="email"
             variant="outlined"
             value={email}
             onChange={(event) => setEmail(event.target.value)}

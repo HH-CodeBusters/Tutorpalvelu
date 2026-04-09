@@ -40,6 +40,12 @@ public class TutorpalveluApplication {
 						subjects);
 				repository.save(user1);
 
+				AppUser user2 = new AppUser("onni.opiskelija@gmail.com", "yFKwEZnPdjBeP9zY09N1", "STUDENT", "Onni",
+						"Opiskelija",
+						"+358415620248", "Koulukatu 2 B 5", "00100", "Helsinki", "Male", "Perälän Ala-aste", false,
+						false, subjects);
+				repository.save(user2);
+
 				Appointment appointment1 = new Appointment();
 
 				appointment1.setStartTime("2024-10-01T10:00");
@@ -47,6 +53,7 @@ public class TutorpalveluApplication {
 
 				Set<AppUser> users = new HashSet<>();
 				users.add(user1);
+				users.add(user2);
 
 				appointment1.setUsers(users);
 
