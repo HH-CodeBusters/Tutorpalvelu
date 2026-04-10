@@ -17,7 +17,11 @@ public class Appointment {
     private Long id;
 
     private String title;
+
+    @Column(name = "start_time")
     private String start;
+
+    @Column(name = "end_time")
     private String end;
 
     @ManyToMany

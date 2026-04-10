@@ -6,9 +6,12 @@ import java.util.List;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -17,9 +20,11 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/api")
 public class AppUserRestController {
     private AppUserRepository repository;
+    private PasswordEncoder passwordEncoder;
 
-    public AppUserRestController(AppUserRepository repository) {
+    public AppUserRestController(AppUserRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/tutors")
@@ -46,5 +51,37 @@ public class AppUserRestController {
         }
         
         return user;
+    }
+
+    @PostMapping("/users")
+    public AppUser registerUser(@RequestBody AppUser newUser) {
+        // Validointi
+        if (newUser.getEmail() == null || newUser.getEmail().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email is required");
+        }
+        
+        if (newUser.getPasswordHash() == null || newUser.getPasswordHash().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Password is required");
+        }
+
+        // Onko olemassa jo käyttäjää samalla sähköpostilla?
+        AppUser existingUser = repository.findByEmail(newUser.getEmail());
+        if (existingUser != null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already registered");
+        }
+
+        // Encodee salasana
+        String encodedPassword = passwordEncoder.encode(newUser.getPasswordHash());
+        newUser.setPasswordHash(encodedPassword);
+
+        // Uudet käyttäjät eivät voi olla suoraan tutoreita yms.
+        newUser.setRole("USER");
+        newUser.setTutor(false);
+
+        // Uudet käyttäjät eivät voi olla vanhempia rekisteröinnin yhteydessä.
+        newUser.setParent(false);
+
+        AppUser savedUser = repository.save(newUser);
+        return savedUser;
     }
 }

@@ -47,7 +47,7 @@ public class SecurityConfig {
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                        .requestMatchers("/api/auth/login", "/api/tutors", "/error", "/h2-console/**", "/login/**", "/register/**", "/index/**")
+                        .requestMatchers("/api/auth/login", "/api/users", "/api/tutors", "/error", "/h2-console/**", "/login/**", "/register/**", "/index/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated())

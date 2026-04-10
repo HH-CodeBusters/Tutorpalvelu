@@ -6,7 +6,7 @@ import { login } from "../services/user";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [error, setError] = useState();
+  const [error, setError] = useState<string>();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,8 +19,10 @@ export default function Login() {
         window.location.reload();
       })
       .catch((error: any) => {
-        if (error.response.data) {
-          setError(error.response.data.message);
+        if (error.response?.data?.detail) {
+          setError(error.response.data.detail);
+        } else {
+          setError("Kirjautuminen epäonnistui. Yritä uudelleen.");
         }
       });
   }
@@ -70,6 +72,15 @@ export default function Login() {
           <Button component={Link} to="/">
             Peruuta
           </Button>
+        </Box>
+
+        <Box sx={{ marginTop: 3 }}>
+          <Typography variant="body2">
+            Ei vielä tiliä?{" "}
+            <Link to="/register" style={{ textDecoration: "none", color: "#1976d2" }}>
+              Rekisteröidy
+            </Link>
+          </Typography>
         </Box>
       </form>
     </>

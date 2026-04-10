@@ -127,17 +127,6 @@ function App() {
                   </>
                 ) : (
                   <>
-                    <Button color="inherit" component={Link} to="/register" sx={{
-                      mx: 1,
-                      textTransform: "none",
-                      fontWeight: 500,
-                      "&:hover": {
-                        backgroundColor: "#6f8f69",
-                        color: "#fff",
-                      }
-                    }}>
-                      Rekisteröidy
-                    </Button>
                     <Button color="inherit" component={Link} to="/login" sx={{
                       mx: 1,
                       textTransform: "none",

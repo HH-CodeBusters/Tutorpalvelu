@@ -1,21 +1,25 @@
 import { useState } from "react";
-import { registerUser } from "../appUserApi";
-import "../styles.css";
+import { Typography, Button, Box, TextField, Alert } from "@mui/material";
+import { Link, useNavigate } from "react-router";
+
+import { createUser } from "../services/user";
+
 export default function Register() {
+  const navigate = useNavigate();
+  const [error, setError] = useState<string>();
+  const [success, setSuccess] = useState<string>();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
-  const [phonenumber, setPhonenumber] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [phonenumber, setPhoneNumber] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.SubmitEvent) => {
-    e.preventDefault();
-    setError("");
-    setSuccess("");
+  function handleSubmitRegister(event: any) {
+    event.preventDefault();
+    setError(undefined);
+    setSuccess(undefined);
 
     // Validation
     if (!email || !password || !passwordCheck) {
@@ -33,141 +37,147 @@ export default function Register() {
       return;
     }
 
-    if (email.length < 4) {
-      setError("Email must be at least 4 characters long");
-      return;
-    }
-
     setLoading(true);
-    try {
-      await registerUser({
-        email,
-        password,
-        passwordCheck,
-        firstname,
-        lastname,
-        phonenumber,
-        role: "USER",
+
+    createUser({
+      email,
+      password,
+      passwordCheck,
+      firstname,
+      lastname,
+      phonenumber,
+    })
+      .then(() => {
+        setSuccess("Registration successful! Redirecting to login...");
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+      })
+      .catch((error: any) => {
+        // Try to get error message from different possible locations
+        let errorMessage = "Registration failed. Please try again.";
+        
+        if (error.response?.data?.detail) {
+          errorMessage = error.response.data.detail;
+        } else if (error.response?.data?.message) {
+          errorMessage = error.response.data.message;
+        } else if (error.response?.statusText) {
+          errorMessage = `Error: ${error.response.statusText}`;
+        } else if (error.message) {
+          errorMessage = error.message;
+        }
+        setError(errorMessage);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-      setSuccess("Registration successful! You can now log in.");
-      // Reset form
-      setEmail("");
-      setPassword("");
-      setPasswordCheck("");
-      setFirstname("");
-      setLastname("");
-      setPhonenumber("");
-    } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Registration failed. Please try again.",
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+  }
 
   return (
-    <div className="register-container">
-      <h2 className="register-title">Register</h2>
-
-      {error && <div className="register-error">{error}</div>}
-
-      {success && <div className="register-success">{success}</div>}
-
-      <form onSubmit={handleSubmit}>
-        <div className="register-form-group">
-          <label htmlFor="email" className="register-form-label">
-            Email
-          </label>
-          <input
+    <>
+      <Typography variant="h4" component="h1" sx={{ marginBottom: 2 }}>
+        Rekisteröidy
+      </Typography>
+      {error && (
+        <Alert
+          severity="error"
+          sx={{ marginBottom: 2 }}
+          onClose={() => setError(undefined)}
+        >
+          {error}
+        </Alert>
+      )}
+      {success && (
+        <Alert
+          severity="success"
+          sx={{ marginBottom: 2 }}
+          onClose={() => setSuccess(undefined)}
+        >
+          {success}
+        </Alert>
+      )}
+      <form onSubmit={handleSubmitRegister}>
+        <Box sx={{ marginBottom: 2 }}>
+          <TextField
+            label="Sähköposti"
             type="email"
-            id="email"
+            variant="outlined"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            className="register-form-input"
+            onChange={(event) => setEmail(event.target.value)}
             required
+            fullWidth
           />
-        </div>
+        </Box>
 
-        <div className="register-form-group">
-          <label htmlFor="firstname" className="register-form-label">
-            First Name
-          </label>
-          <input
-            type="text"
-            id="firstname"
+        <Box sx={{ marginBottom: 2 }}>
+          <TextField
+            label="Etunimi"
+            variant="outlined"
             value={firstname}
-            onChange={(e) => setFirstname(e.target.value)}
-            placeholder="Enter your first name"
-            className="register-form-input"
+            onChange={(event) => setFirstname(event.target.value)}
+            fullWidth
           />
-        </div>
+        </Box>
 
-        <div className="register-form-group">
-          <label htmlFor="lastname" className="register-form-label">
-            Last Name
-          </label>
-          <input
-            type="text"
-            id="lastname"
+        <Box sx={{ marginBottom: 2 }}>
+          <TextField
+            label="Sukunimi"
+            variant="outlined"
             value={lastname}
-            onChange={(e) => setLastname(e.target.value)}
-            placeholder="Enter your last name"
-            className="register-form-input"
+            onChange={(event) => setLastname(event.target.value)}
+            fullWidth
           />
-        </div>
+        </Box>
 
-        <div className="register-form-group">
-          <label htmlFor="phonenumber" className="register-form-label">
-            Phone Number
-          </label>
-          <input
+        <Box sx={{ marginBottom: 2 }}>
+          <TextField
+            label="Puhelinnumero"
             type="tel"
-            id="phonenumber"
+            variant="outlined"
             value={phonenumber}
-            onChange={(e) => setPhonenumber(e.target.value)}
-            placeholder="Enter your phone number"
-            className="register-form-input"
+            onChange={(event) => setPhoneNumber(event.target.value)}
+            fullWidth
           />
-        </div>
+        </Box>
 
-        <div className="register-form-group">
-          <label htmlFor="password" className="register-form-label">
-            Password (min 7 characters)
-          </label>
-          <input
+        <Box sx={{ marginBottom: 2 }}>
+          <TextField
+            label="Salasana (min 7 merkkiä)"
             type="password"
-            id="password"
+            variant="outlined"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
-            className="register-form-input"
+            onChange={(event) => setPassword(event.target.value)}
             required
+            fullWidth
           />
-        </div>
+        </Box>
 
-        <div className="register-form-group">
-          <label htmlFor="passwordCheck" className="register-form-label">
-            Confirm Password
-          </label>
-          <input
+        <Box sx={{ marginBottom: 3 }}>
+          <TextField
+            label="Vahvista salasana"
             type="password"
-            id="passwordCheck"
+            variant="outlined"
             value={passwordCheck}
-            onChange={(e) => setPasswordCheck(e.target.value)}
-            placeholder="Confirm your password"
-            className="register-form-input"
+            onChange={(event) => setPasswordCheck(event.target.value)}
             required
+            fullWidth
           />
-        </div>
+        </Box>
 
-        <button type="submit" disabled={loading} className="register-button">
-          {loading ? "Registering..." : "Register"}
-        </button>
+        <Box>
+          <Button
+            type="submit"
+            variant="contained"
+            disabled={loading}
+            sx={{ marginRight: 1 }}
+          >
+            {loading ? "Rekisteröidään..." : "Rekisteröidy"}
+          </Button>
+          <Button component={Link} to="/login">
+            Takaisin kirjautumiseen
+          </Button>
+        </Box>
       </form>
-    </div>
+    </>
   );
 }

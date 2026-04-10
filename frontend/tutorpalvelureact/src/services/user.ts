@@ -14,6 +14,7 @@ export function logout() {
 }
 
 export function createUser(user: any) {
+	console.log(user)
 	return api.post("/api/users", user).then((response: any) => response.data);
 }
 

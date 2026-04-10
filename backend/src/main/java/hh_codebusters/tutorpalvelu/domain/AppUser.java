@@ -17,7 +17,7 @@ public class AppUser {
     private String email;
 
     @Column(name = "password", nullable = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(value = "password", access = JsonProperty.Access.WRITE_ONLY)
     private String passwordHash;
 
     @Column(name = "role", nullable = false)
@@ -31,24 +31,23 @@ public class AppUser {
     private String city;
     private String gender;
     private String school;
-    private boolean tutor;
-    private boolean parent;
+    private Boolean tutor = false;
+    private Boolean parent = false;
 
     @ManyToMany
     @JoinTable(name = "tutor_subjects", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "subject_id"))
 
     private Set<Subject> subjects;
 
-    
-   @ManyToMany(mappedBy = "users")
-private Set<Appointment> appointments;
+    @ManyToMany(mappedBy = "users")
+    private Set<Appointment> appointments;
 
     public AppUser() {
     }
 
     public AppUser(String email, String passwordHash, String role, String firstname, String lastname,
             String phone, String address, String zipcode, String city, String gender, String school,
-            boolean tutor, boolean parent, Set<Subject> subjects) {
+            Boolean tutor, Boolean parent, Set<Subject> subjects) {
         this.email = email;
         this.passwordHash = passwordHash;
         this.role = role;
@@ -162,18 +161,18 @@ private Set<Appointment> appointments;
     }
 
     public boolean isTutor() {
-        return tutor;
+        return tutor != null && tutor;
     }
 
-    public void setTutor(boolean tutor) {
+    public void setTutor(Boolean tutor) {
         this.tutor = tutor;
     }
 
     public boolean isParent() {
-        return parent;
+        return parent != null && parent;
     }
 
-    public void setParent(boolean parent) {
+    public void setParent(Boolean parent) {
         this.parent = parent;
     }
 
