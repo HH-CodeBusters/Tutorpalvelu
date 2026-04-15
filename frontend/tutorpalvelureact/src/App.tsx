@@ -5,9 +5,10 @@ import { AppBar, Button, Container, CssBaseline, Toolbar, Typography } from "@mu
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import "./styles.css";
+import type { appUser } from './types';
 
 function App() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<appUser | null>(null);
 
   useEffect(() => {
     // Try to load authenticated user on mount
@@ -108,7 +109,22 @@ function App() {
 
                 {user ? (
                   <>
-                    {/*<Typography sx={{ mx: 1 }}>Hello, {user.firstname}</Typography>*/}
+                    <Button
+                      color="inherit"
+                      component={Link}
+                      to="/profile"
+                      sx={{
+                        mx: 1,
+                        textTransform: "none",
+                        fontWeight: 500,
+                        "&:hover": {
+                          backgroundColor: "#6f8f69",
+                          color: "#fff",
+                        }
+                      }}
+                    >
+                      Profiili
+                    </Button>
                     <Button
                       color="inherit"
                       onClick={handleLogout}
