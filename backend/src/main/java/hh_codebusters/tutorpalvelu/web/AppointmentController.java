@@ -23,4 +23,9 @@ public class AppointmentController {
     public List<Appointment> getAll() {
         return appointmentRepository.findAll();
     }
+
+    @PostMapping("/appointments")
+    public Appointment createAppointment(@RequestBody Appointment appointment) {
+        return appointmentRepository.save(appointment);
+    }
 }

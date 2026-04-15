@@ -52,9 +52,9 @@ public class TutorpalveluApplication {
 
 				Appointment appointment1 = new Appointment();
 
-				appointment1.setStart("2024-10-01T10:00");
-				appointment1.setEnd("2024-10-01T11:00");
-
+				appointment1.setTitle("Matematiikka tutorointi");
+				appointment1.setStart("2024-10-01T10:00:00");
+				appointment1.setEnd("2024-10-01T11:00:00");
 				Set<AppUser> users = new HashSet<>();
 				users.add(user1);
 				users.add(user2);
