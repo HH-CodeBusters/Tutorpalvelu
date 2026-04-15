@@ -45,21 +45,28 @@ export default function Calendar() {
       end: selectedSlot.endStr,
     };
 
-    const res = await fetch("/api/appointments", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newBooking),
-    });
+    try {
+      const res = await fetch("/api/appointments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newBooking),
+      });
 
-    const saved = await res.json();
+      if (!res.ok) {
+        throw new Error("POST failed");
+      }
 
-    setEvents([...events, saved]);
-    setSelectedSlot(null);
-    setTitle("");
+      const saved = await res.json();
+
+      setEvents((prev) => [...prev, saved]);
+      setSelectedSlot(null);
+      setTitle("");
+    } catch (err) {
+      console.error("Booking failed:", err);
+    }
   };
-
   return (
     <div className="calendar-container">
       <FullCalendar
