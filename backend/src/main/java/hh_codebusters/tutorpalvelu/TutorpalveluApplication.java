@@ -46,6 +46,10 @@ public class TutorpalveluApplication {
 						false, subjects);
 				repository.save(user2);
 
+				AppUser user3 = new AppUser("vanhempi.faijataimutsi@gmail.com", "yFKwEZnPdjBeP9zY09N1", "PARENT", "Vanhempi", "Faijataimutsi",
+						"+358415620249", "Koulukatu 3 B 5", "00100", "Helsinki", "Male", "Perälän Ala-aste", false, true, subjects);
+				repository.save(user3);
+
 				Appointment appointment1 = new Appointment();
 
 				appointment1.setStart("2024-10-01T10:00");

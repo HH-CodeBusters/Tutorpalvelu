@@ -31,6 +31,14 @@ public class AppUserRestController {
     public List<AppUser> tutorListRest(boolean tutor) {
         return (List<AppUser>) repository.findByTutorTrue(tutor);
     }
+    @GetMapping("/students")
+    public List<AppUser> getStudents() {
+        return (List<AppUser>) repository.findByTutorFalseAndParentFalse();
+    }
+    @GetMapping("/parents")
+    public List<AppUser> getParents() {
+        return (List<AppUser>) repository.findByParentTrue();
+    }
     
     @GetMapping ("/tutors/{id}")
     public AppUser findTutorRest(@PathVariable Long id) {
