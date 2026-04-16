@@ -1,6 +1,7 @@
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import { api } from "../services/api";
 import type {
   DateSelectArg,
   EventInput,
@@ -16,9 +17,10 @@ export default function Calendar() {
   const [title, setTitle] = useState("");
 
   useEffect(() => {
-    fetch("/api/appointments")
-      .then((res) => res.json())
-      .then((data) => setEvents(data));
+    api
+      .get("/api/appointments")
+      .then((res) => setEvents(res.data))
+      .catch((err) => console.error("GET failed:", err));
   }, []);
 
   // Sallitaan vain 1-3 tunnin varaukset
@@ -46,21 +48,9 @@ export default function Calendar() {
     };
 
     try {
-      const res = await fetch("/api/appointments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newBooking),
-      });
+      const res = await api.post("/api/appointments", newBooking);
 
-      if (!res.ok) {
-        throw new Error("POST failed");
-      }
-
-      const saved = await res.json();
-
-      setEvents((prev) => [...prev, saved]);
+      setEvents((prev) => [...prev, res.data]);
       setSelectedSlot(null);
       setTitle("");
     } catch (err) {
