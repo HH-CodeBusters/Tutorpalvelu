@@ -1,0 +1,22 @@
+{
+  "name": "tutorpalvelu",
+  "version": "1.0.0",
+  "description": "Projektin nimi on TuPa\r Projektin tavoitteena on luoda kuvitteelliselle TutorPalvelu TuPa Oy:lle järjestelmä, joka mahdollistaa tutorien ja asiakkaiden välisen vuorovaikutuksen, ajanvaraukset, maksut ja raportoinnin sujuvasti samassa ympäristössä.\r Palvelun tekninen toiminta koostuisi kahdesta osasta: Spring boot back end ja React front end. Nämä olisivat toisiinsa yhteydessä pilvipalvelun avulla. Front end olisi se, mitä asiakas näkisi ja back end hoitaisi kaiken logiikan.\r Toiminnallisuuksia joita tulee olla:\r - Rekisteröityminen ja sisäänkirjautuminen\r - Ajanvaraus tuutorilta\r - Nähdä vapaat ja varatut tuutorit\r - Tuutori voi laskuttaa asiakasta\r - Käyttäjä voi katsella ja muokata omia tietojaan\r - Tuutori voi hallita saatavuuttaan\r - Ylläpitäjä voi poistaa, muokata tai päivittää muita käyttäjiä\r - Ylläpitävä voi tarkastella ja hyväksyä tai hylätä tutoreita",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HH-CodeBusters/Tutorpalvelu.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HH-CodeBusters/Tutorpalvelu/issues"
+  },
+  "homepage": "https://github.com/HH-CodeBusters/Tutorpalvelu#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^25.6.0"
+  }
+}
