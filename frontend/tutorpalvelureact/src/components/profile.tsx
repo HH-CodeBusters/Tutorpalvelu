@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import type { appUser } from "../types";
 import { useOutletContext } from "react-router";
 
