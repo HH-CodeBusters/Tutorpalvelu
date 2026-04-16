@@ -1,6 +1,8 @@
 package hh_codebusters.tutorpalvelu.domain;
 
 import jakarta.persistence.*;
+
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -26,7 +28,7 @@ public class Appointment {
 
     @ManyToMany
     @JoinTable(name = "appointment_users", joinColumns = @JoinColumn(name = "appointment_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<AppUser> users;
+    private Set<AppUser> users = new HashSet<>();
 
     public Long getId() {
         return id;

@@ -44,10 +44,13 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**", "/api/**"))
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.disable()))
                 .cors(withDefaults())
-                .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(
+                        sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                        .requestMatchers("/api/auth/login", "/api/users", "/api/tutors", "/api/students", "/api/parents", "/error", "/h2-console/**", "/login/**", "/register/**", "/index/**")
+                        .requestMatchers("/api/auth/login", "/api/users", "/api/tutors", "/api/students",
+                                "/api/appointments", "/api/parents", "/error", "/h2-console/**", "/login/**",
+                                "/register/**", "/index/**")
                         .permitAll()
                         .anyRequest()
                         .authenticated())
