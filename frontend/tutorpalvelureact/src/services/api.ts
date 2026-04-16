@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL ?? "";
+const API_URL = import.meta.env.VITE_API_URL ?? "https://tutorpalvelu-tutorpalvelu.2.rahtiapp.fi:5432";
 const ACCESS_TOKEN_KEY = "MESSENGER_ACCESS_TOKEN";
 
 export function setAccessToken(token: any) {

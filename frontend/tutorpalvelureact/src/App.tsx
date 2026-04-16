@@ -165,7 +165,7 @@ function App() {
         <Toolbar />
 
         <Container maxWidth="lg">
-          <Outlet />
+          <Outlet context={user}/>
         </Container>
       </LocalizationProvider>
     </>
