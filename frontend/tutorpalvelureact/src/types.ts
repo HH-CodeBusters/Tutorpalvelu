@@ -27,3 +27,18 @@ export interface Availability {
   start: string
   end: string
 }
+
+export interface RegistrationData {
+  email: string;
+  password: string;
+  passwordCheck: string;
+  firstname: string;
+  lastname: string;
+  phonenumber: string;
+  role: string;
+}
+
+export interface LoginCredentials {
+	email: string;
+	password: string;
+}
