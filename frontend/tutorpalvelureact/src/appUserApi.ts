@@ -1,6 +1,6 @@
 import type { RegistrationData, LoginCredentials } from "./types";
 
-const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:8080";
+const API_URL = import.meta.env.VITE_API_URL ?? "https://tutorpalvelu-tutorpalvelu.2.rahtiapp.fi:5432";
 
 export function getAppUsers() {
 	return fetch(`${API_URL}/api/tutors`)
