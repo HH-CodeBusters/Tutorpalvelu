@@ -2,6 +2,7 @@ package hh_codebusters.tutorpalvelu.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -38,6 +39,7 @@ public class SecurityConfig {
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
+    //.csrf(csrf -> csrf.disable())
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -47,13 +49,23 @@ public class SecurityConfig {
                 .sessionManagement(
                         sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
-                .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                        .requestMatchers("/api/auth/login", "/api/users", "/api/tutors", "/api/students",
-                                "/api/appointments", "/api/parents", "/error", "/h2-console/**", "/login/**",
-                                "/register/**", "/index/**")
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated())
+                .authorizeHttpRequests(authorize -> authorize
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() 
+                .requestMatchers(
+                            "/api/auth/login",
+                            "/api/users",
+                            "/api/tutors",
+                            "/api/students",
+                            "/api/appointments",
+                            "/api/parents",
+                            "/error",
+                            "/h2-console/**",
+                            "/login/**",
+                            "/register/**",
+                            "/index/**"
+                        ).permitAll()
+                        .anyRequest().authenticated()
+)
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
