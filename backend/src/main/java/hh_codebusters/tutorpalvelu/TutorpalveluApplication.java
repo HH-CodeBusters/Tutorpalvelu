@@ -40,13 +40,13 @@ public class TutorpalveluApplication {
 						subjects);
 				repository.save(user1);
 
-				AppUser user2 = new AppUser("onni.opiskelija@gmail.com", "yFKwEZnPdjBeP9zY09N1", "STUDENT", "Onni",
+				AppUser user2 = new AppUser("onni.opiskelija@gmail.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "STUDENT", "Onni",
 						"Opiskelija",
 						"+358415620248", "Koulukatu 2 B 5", "00100", "Helsinki", "Male", "Perälän Ala-aste", false,
 						false, subjects);
 				repository.save(user2);
 
-				AppUser user3 = new AppUser("vanhempi.faijataimutsi@gmail.com", "yFKwEZnPdjBeP9zY09N1", "PARENT", "Vanhempi", "Faijataimutsi",
+				AppUser user3 = new AppUser("vanhempi.faijataimutsi@gmail.com", "$2a$10$aX0F3E07vWhhK./UwCwU8OMzDduwP9m0pOsrsOcgYr3R58R7Al9Hi", "PARENT", "Vanhempi", "Faijataimutsi",
 						"+358415620249", "Koulukatu 3 B 5", "00100", "Helsinki", "Male", "Perälän Ala-aste", false, true, subjects);
 				repository.save(user3);
 
@@ -68,3 +68,6 @@ public class TutorpalveluApplication {
 }
 
 //Tuomo12345
+//OnniOp123
+//Vanhempi1234
+
