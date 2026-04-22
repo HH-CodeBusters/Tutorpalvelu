@@ -9,7 +9,8 @@ export default function AppUser() {
   const [availableSubjects, setAvailableSubjects] = useState<string[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/tutors")
+    fetch(`${import.meta.env.VITE_API_URL}/api/tutors`)
+    //("http://localhost:8080/api/tutors")
       .then((response) => response.json())
       .then((data) => {
         setAppUser(data);
@@ -24,7 +25,7 @@ export default function AppUser() {
         
         setAvailableSubjects(Array.from(subjects).sort());
       })
-      .catch((err) => console.error("Virhe opettajien hakemisessa:", err));
+      .catch((err) => console.error("Virhe tuutorien hakemisessa:", err));
   }, []);
 
   
