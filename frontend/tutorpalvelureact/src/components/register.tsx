@@ -1,8 +1,51 @@
 import { useState } from "react";
-import { Typography, Button, Box, TextField, Alert } from "@mui/material";
+import { Typography, Button, Box, TextField, Alert, LinearProgress } from "@mui/material";
 import { Link, useNavigate } from "react-router";
 
 import { createUser } from "../services/user";
+
+// Calculate password strength
+function calculatePasswordStrength(password: string): { strength: number; label: string; color: 'error' | 'warning' | 'success' } {
+  let color: 'error' | 'warning' | 'success' = 'error';
+  let label = "";
+  let strength = 0;
+  
+  // Check if password is too short
+  if (password.length < 7) {
+    label = "Liian lyhyt";
+    color = 'error';
+    strength = 4;
+  } else {
+    // Length check
+    if (password.length >= 7) strength += 10;
+    if (password.length >= 10) strength += 15;
+    if (password.length >= 16) strength += 20;
+    // Uppercase check
+    if (/[A-Z]/.test(password)) strength += 15;
+    
+    // Lowercase check
+    if (/[a-z]/.test(password)) strength += 15;
+    
+    // Number check
+    if (/\d/.test(password)) strength += 15;
+    
+    // Special character check
+    if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) strength += 25;
+    
+    if (strength < 40) {
+      label = "Heikko";
+      color = 'error';
+    } else if (strength < 60) {
+      label = "Kohtuullinen";
+      color = 'warning';
+    } else {
+      label = "Vahva";
+      color = 'success';
+    }
+  }
+  
+  return { strength: Math.min(strength, 100), label, color };
+}
 
 export default function Register() {
   const navigate = useNavigate();
@@ -140,9 +183,9 @@ export default function Register() {
           />
         </Box>
 
-        <Box sx={{ marginBottom: 2 }}>
+        <Box sx={{ marginBottom: 1 }}>
           <TextField
-            label="Salasana (min 7 merkkiä)"
+            label="Salasana"
             type="password"
             variant="outlined"
             value={password}
@@ -150,9 +193,32 @@ export default function Register() {
             required
             fullWidth
           />
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, marginTop: 0.75 }}>
+              <LinearProgress
+                variant="determinate"
+                value={calculatePasswordStrength(password).strength}
+                sx={{
+                  flex: 1,
+                  height: 6,
+                  borderRadius: 3,
+                  backgroundColor: '#e0e0e0',
+                  '& .MuiLinearProgress-bar': {
+                    borderRadius: 3,
+                    backgroundColor: calculatePasswordStrength(password).color === 'error' 
+                      ? '#d32f2f' 
+                      : calculatePasswordStrength(password).color === 'warning'
+                      ? '#f57c00'
+                      : '#388e3c',
+                  }
+                }}
+              />
+              <Typography variant="caption" sx={{ minWidth: '70px', fontWeight: 500 }}>
+                {calculatePasswordStrength(password).label}
+              </Typography>
+            </Box>
         </Box>
 
-        <Box sx={{ marginBottom: 3 }}>
+        <Box sx={{ marginBottom: 2 }}>
           <TextField
             label="Vahvista salasana"
             type="password"
