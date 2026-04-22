@@ -164,12 +164,20 @@ public class AppUser {
         return tutor != null && tutor;
     }
 
+    public Boolean getTutor() {
+        return tutor;
+    }
+
     public void setTutor(Boolean tutor) {
         this.tutor = tutor;
     }
 
     public boolean isParent() {
         return parent != null && parent;
+    }
+
+    public Boolean getParent() {
+        return parent;
     }
 
     public void setParent(Boolean parent) {
