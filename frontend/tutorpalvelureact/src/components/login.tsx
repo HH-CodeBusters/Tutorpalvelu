@@ -15,7 +15,7 @@ export default function Login() {
 
     login({ email, password })
       .then(() => {
-        navigate("/profile");
+        navigate("/");
         window.location.reload();
       })
       .catch((error: any) => {
