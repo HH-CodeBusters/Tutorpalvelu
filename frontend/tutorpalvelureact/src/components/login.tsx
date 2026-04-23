@@ -44,6 +44,7 @@ export default function Login() {
       <form onSubmit={handleSubmitLogin}>
         <Box sx={{ marginBottom: 2 }}>
           <TextField
+            name="email"
             label="Sähköposti"
             variant="outlined"
             value={email}
@@ -58,6 +59,7 @@ export default function Login() {
             label="Salasana"
             type="password"
             variant="outlined"
+            name="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
             required
