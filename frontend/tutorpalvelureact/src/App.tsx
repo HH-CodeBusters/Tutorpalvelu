@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getAuthenticatedUser, logout } from './services/user';
 import { Link, Outlet } from "react-router";
-import { AppBar, Button, Container, CssBaseline, Toolbar, Typography } from "@mui/material";
+import { AppBar, Button, Container, CssBaseline, Toolbar, Typography, Box } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import "./styles.css";
@@ -43,6 +43,16 @@ function App() {
           <Container maxWidth="lg">
             <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
               {/* Logo / Nimi */}
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <Box
+                  component="img"
+                  src="/tupalogoooo.png"
+                  alt="logo"
+                  sx={{
+                    height: 40,
+                    mr: 1, 
+                  }}
+                />
               <Typography
                 fontFamily="tahoma"
                 variant="h6"
@@ -53,6 +63,8 @@ function App() {
               >
                 TutorPalvelu
               </Typography>
+                  </Box>
+
 
               {/* Navigaatio */}
               <nav>
