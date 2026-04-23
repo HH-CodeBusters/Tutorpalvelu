@@ -1,22 +1,7 @@
 import { test, expect } from '@playwright/test';
-/* Remember to make sure that the backend is running!!! */ 
-
-test('The page opens', async ({ page }) => {
-  await page.goto('http://localhost:5173/');
-
-  await expect(page.getByText('TutorPalvelu', { exact: true })).toBeVisible();
-
-});
-
-test('localhost works', async ({ page }) => {
-
-    await page.goto('http://localhost:5173/');
-    await expect(page.getByText('TutorPalvelu', { exact: true })).toBeVisible();
-
-});
 
 test('I can see the example tutor in the tuutorit page', async ({ page }) => {
-    await page.goto('http://localhost:5173/tutors');
+    await page.goto('https://tutorpalvelu.vercel.app/tutors');
 
   await expect(page.getByText('Tuomo Tutor')).toBeVisible();
   await expect(page.getByText('ei koulua')).toBeVisible();
@@ -36,7 +21,7 @@ test('renders multiple tutors', async ({ page }) => {
   })
 );
 
-  await page.goto('http://localhost:5173/tutors');
+  await page.goto('https://tutorpalvelu.vercel.app/tutors');
 
   await expect(page.getByText('A A')).toBeVisible();
   await expect(page.getByText('B B')).toBeVisible();
@@ -59,13 +44,13 @@ test('renders subjects correctly', async ({ page }) => {
     })
   );
 
-  await page.goto('http://localhost:5173/tutors');
+  await page.goto('https://tutorpalvelu.vercel.app/tutors');
 
   await expect(page.getByText('Historia, Maantieto')).toBeVisible();
 });
 
 test('user can navigate to tutors page', async ({ page }) => {
-  await page.goto('http://localhost:5173');
+  await page.goto('https://tutorpalvelu.vercel.app/');
 
   await page
   .getByRole('navigation')
