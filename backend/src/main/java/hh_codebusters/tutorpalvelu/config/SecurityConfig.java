@@ -39,7 +39,7 @@ public class SecurityConfig {
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
-    //.csrf(csrf -> csrf.disable())
+    // .csrf(csrf -> csrf.disable())
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -50,22 +50,21 @@ public class SecurityConfig {
                         sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() 
-                .requestMatchers(
-                            "/api/auth/login",
-                            "/api/users",
-                            "/api/tutors",
-                            "/api/students",
-                            "/api/appointments",
-                            "/api/parents",
-                            "/error",
-                            "/h2-console/**",
-                            "/login/**",
-                            "/register/**",
-                            "/index/**"
-                        ).permitAll()
-                        .anyRequest().authenticated()
-)
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers(
+                                "/api/auth/login",
+                                "/api/users",
+                                "/api/tutors",
+                                "/api/students",
+                                "/api/appointments/**",
+                                "/api/parents",
+                                "/error",
+                                "/h2-console/**",
+                                "/login/**",
+                                "/register/**",
+                                "/index/**")
+                        .permitAll()
+                        .anyRequest().authenticated())
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

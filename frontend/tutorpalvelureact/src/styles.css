@@ -281,6 +281,11 @@ button:focus-visible {
   cursor: pointer;
 }
 
+.modal-btn-delete {
+  background-color: #e53935;
+  color: white;
+}
+
 /* Login Form Styles */
 
 .login-container {
