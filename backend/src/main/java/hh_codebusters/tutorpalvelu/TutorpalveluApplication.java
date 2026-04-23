@@ -26,9 +26,33 @@ public class TutorpalveluApplication {
 
 				Subject math = new Subject("Matematiikka");
 				Subject physics = new Subject("Fysiikka");
+				Subject chemistry = new Subject("Kemia");
+				Subject programming = new Subject("Ohjelmointi");
+				Subject history = new Subject("Historia");
+				Subject english = new Subject("Englanti");
+				Subject finnish = new Subject("Suomi");
+				Subject swedish = new Subject("Ruotsi");
+				Subject geography = new Subject("Maantiede");
+				Subject biology = new Subject("Biologia");
+				Subject music = new Subject("Musiikki");
+				Subject art = new Subject("Kuvataide");
+				Subject psykology = new Subject("Psykologia");
+
 
 				subjectRepository.save(math);
 				subjectRepository.save(physics);
+				subjectRepository.save(chemistry);
+				subjectRepository.save(programming);
+				subjectRepository.save(history);
+				subjectRepository.save(english);
+				subjectRepository.save(finnish);
+				subjectRepository.save(swedish);
+				subjectRepository.save(geography);
+				subjectRepository.save(biology);
+				subjectRepository.save(music);
+				subjectRepository.save(art);
+				subjectRepository.save(psykology);
+				
 
 				Set<Subject> subjects = new HashSet<>();
 				subjects.add(math);
