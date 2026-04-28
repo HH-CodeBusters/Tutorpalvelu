@@ -134,7 +134,15 @@ export default function AppUser() {
       {/* Tuutorikortit */}
       <Box sx={{ minHeight: "calc(100vh - 200px)", pb: 4 }}>
         <Grid container spacing={3} sx={{ p: 3, maxWidth: "1400px", margin: "0 auto" }} justifyContent="center">
-        {filteredTutors.map((tutor) => (
+        {filteredTutors.length === 0 ? (
+  <Typography
+    variant="h6"
+    sx={{ mt: 4, textAlign: "center", width: "100%" }}
+  >
+    Ei löytynyt tuutoreita 😕
+  </Typography>
+) : (
+  filteredTutors.map((tutor) => (
         <Grid
           size={{ xs: 12, sm: 6, md: 4 }}
           key={tutor.id}
@@ -187,7 +195,7 @@ export default function AppUser() {
             </CardContent>
           </Card>
         </Grid>
-      ))}
+      )))}
       </Grid>
       </Box>
     </>
