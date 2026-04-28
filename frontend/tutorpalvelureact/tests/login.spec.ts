@@ -15,22 +15,23 @@ test('login page visible', async ({ page }) => {
 
 
 test('user can log in', async ({ page }) => {
-  await page.goto(' https://tutorpalvelu.vercel.app/');
+  await page.goto('https://tutorpalvelu.vercel.app/');
   await page.click('text=Kirjaudu');
   
-    const emailInput = page.locator('input[name="email"]');
+  const emailInput = page.locator('input[name="email"]');
   const passwordInput = page.locator('input[name="password"]');
   const signInButton = page.locator('button[type=submit]');
   await expect(emailInput).toBeVisible();
   await expect(passwordInput).toBeVisible();
   await expect(signInButton).toBeVisible();
 
-    await page.fill('#email', 'tuomo.tutor@gmail.com');
-    await page.fill('#password', 'Tuomo12345');
+    await page.fill('input[name="email"]', 'tuomo.tutor@gmail.com');
+    await page.fill('input[name="password"]', 'Tuomo12345');
     await page.click('button[type=submit]');
 
     await expect(page).toHaveURL(' https://tutorpalvelu.vercel.app/');
-    await expect(page.locator('text=Oma Profiili')).toBeVisible();
+
+    await expect(page.locator('nav').getByText('Profiili')).toBeVisible();
 });
 
 /*
