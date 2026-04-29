@@ -58,6 +58,34 @@ public class TutorpalveluApplication {
 				subjects.add(math);
 				subjects.add(physics);
 
+				Set<Subject> subjects2 = new HashSet<>();
+				subjects2.add(english);
+				subjects2.add(history);
+				subjects2.add(finnish);
+
+				Set<Subject> subjects3 = new HashSet<>();
+				subjects3.add(programming);
+				subjects3.add(physics);
+				subjects3.add(chemistry);
+				subjects3.add(math);
+
+				Set<Subject> subjects4 = new HashSet<>();
+				subjects4.add(geography);
+				subjects4.add(biology);
+				subjects4.add(psykology);
+				subjects4.add(history);
+
+				Set<Subject> subjects5 = new HashSet<>();
+				subjects5.add(music);
+				subjects5.add(art);
+				subjects5.add(psykology);
+
+				Set<Subject> subjects6 = new HashSet<>();
+				subjects6.add(english);
+				subjects6.add(swedish);
+				subjects6.add(finnish);
+
+
 				AppUser user1 = new AppUser("tuomo.tutor@gmail.com",
 						"$2a$10$b/pkWuFlnv52E0L2f3eqa./NZYSYcVNkn.5URY7YQhT8n.6yu0QPO", "TUTOR", "Tuomo", "Tutor",
 						"+358415620247", "Koulukatu 1 B 5", "00100", "Helsinki", "Male", "ei koulua", true, false,
@@ -77,49 +105,49 @@ public class TutorpalveluApplication {
 				AppUser user4 = new AppUser("timo@example.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "TUTOR", "Timo",
 						"Tutor",
 						"+358415620250", "Keskuskatu 1 B 5", "00100", "Helsinki", "Male", "ei koulua", true, false,
-						subjects);
+						subjects2);
 				repository.save(user4);
 
 				AppUser user5 = new AppUser("kaisa@mail.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "TUTOR", "Kaisa",
 						"Tutor",
 						"+358415620251", "Koulukatu 1 B 2", "00100", "Helsinki", "Female", "ei koulua", true, false,
-						subjects);
+						subjects5);
 				repository.save(user5);
 
 				AppUser user6 = new AppUser("lasse@example.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "TUTOR", "Lasse",
 						"Tutor",
 						"+358415620252", "Virastotie 1 A 3", "00100", "Helsinki", "Male", "ei koulua", true, false,
 						subjects);
-				repository.save(user6);
+				repository.save(user3);
 
 				AppUser user7 = new AppUser("miika@example.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "TUTOR", "Miika",
 						"Tutor",
 						"+358415620253", "Opintokatu 8 C 4", "00100", "Helsinki", "Male", "ei koulua", true, false,
 						subjects);
-				repository.save(user7);
+				repository.save(user6);
 
 				AppUser user8 = new AppUser("anta@example.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "TUTOR", "Anta",
 						"Tutor",
 						"+358415620254", "Koulukatu 1 B 5", "00100", "Helsinki", "Female", "ei koulua", true, false,
-						subjects);
+						subjects4);
 				repository.save(user8);
 
 				AppUser user9 = new AppUser("sari@example.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "TUTOR", "Sari",
 						"Tutor",
 						"+358415620255", "Testikatu 1 A 3", "00100", "Helsinki", "Female", "ei koulua", true, false,
-						subjects);
-				repository.save(user9);
+						subjects6);
+				repository.save(user);
 
 				AppUser user10 = new AppUser("maria@example.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "TUTOR", "Maria",
 						"Tutor",
 						"+358415620256", "Viimakuja 1 C 7", "00100", "Helsinki", "Female", "ei koulua", true, false,
-						subjects);
+						subjects2);
 				repository.save(user10);
 
 				AppUser user11 = new AppUser("anna@example.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "TUTOR", "Anna",
 						"Tutor",
 						"+358415620257", "Koulukatu 1 B 8", "00100", "Helsinki", "Female", "ei koulua", true, false,
-						subjects);
+						subjects5);
 				repository.save(user11);
 
 Appointment appointment1 = new Appointment();
