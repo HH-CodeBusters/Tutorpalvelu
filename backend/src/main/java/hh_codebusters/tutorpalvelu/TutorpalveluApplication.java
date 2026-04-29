@@ -118,13 +118,13 @@ public class TutorpalveluApplication {
 						"Tutor",
 						"+358415620252", "Virastotie 1 A 3", "00100", "Helsinki", "Male", "ei koulua", true, false,
 						subjects);
-				repository.save(user3);
+				repository.save(user6);
 
 				AppUser user7 = new AppUser("miika@example.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "TUTOR", "Miika",
 						"Tutor",
 						"+358415620253", "Opintokatu 8 C 4", "00100", "Helsinki", "Male", "ei koulua", true, false,
 						subjects);
-				repository.save(user6);
+				repository.save(user7);
 
 				AppUser user8 = new AppUser("anta@example.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "TUTOR", "Anta",
 						"Tutor",
@@ -136,7 +136,7 @@ public class TutorpalveluApplication {
 						"Tutor",
 						"+358415620255", "Testikatu 1 A 3", "00100", "Helsinki", "Female", "ei koulua", true, false,
 						subjects6);
-				repository.save(user);
+				repository.save(user9);
 
 				AppUser user10 = new AppUser("maria@example.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "TUTOR", "Maria",
 						"Tutor",
