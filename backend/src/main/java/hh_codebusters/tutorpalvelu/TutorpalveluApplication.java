@@ -66,26 +66,75 @@ public class TutorpalveluApplication {
 
 				AppUser user2 = new AppUser("onni.opiskelija@gmail.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "STUDENT", "Onni",
 						"Opiskelija",
-						"+358415620248", "Koulukatu 2 B 5", "00100", "Helsinki", "Male", "Perälän Ala-aste", false,
+						"+358415620248", "Opintokatu 2 B 5", "00100", "Helsinki", "Male", "Perälän Ala-aste", false,
 						false, subjects);
 				repository.save(user2);
 
 				AppUser user3 = new AppUser("vanhempi.faijataimutsi@gmail.com", "$2a$10$aX0F3E07vWhhK./UwCwU8OMzDduwP9m0pOsrsOcgYr3R58R7Al9Hi", "PARENT", "Vanhempi", "Faijataimutsi",
-						"+358415620249", "Koulukatu 3 B 5", "00100", "Helsinki", "Male", "Perälän Ala-aste", false, true, subjects);
+						"+358415620249", "Opintokatu 2 B 5", "00100", "Helsinki", "Male", "Perälän Ala-aste", false, true, subjects);
 				repository.save(user3);
 
-				Appointment appointment1 = new Appointment();
+				AppUser user4 = new AppUser("timo@example.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "TUTOR", "Timo",
+						"Tutor",
+						"+358415620250", "Keskuskatu 1 B 5", "00100", "Helsinki", "Male", "ei koulua", true, false,
+						subjects);
+				repository.save(user4);
 
-				appointment1.setTitle("Matematiikka tutorointi");
-				appointment1.setStart("2024-10-01T10:00:00");
-				appointment1.setEnd("2024-10-01T11:00:00");
-				Set<AppUser> users = new HashSet<>();
-				users.add(user1);
-				users.add(user2);
+				AppUser user5 = new AppUser("kaisa@mail.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "TUTOR", "Kaisa",
+						"Tutor",
+						"+358415620251", "Koulukatu 1 B 2", "00100", "Helsinki", "Female", "ei koulua", true, false,
+						subjects);
+				repository.save(user5);
 
-				appointment1.setUsers(users);
+				AppUser user6 = new AppUser("lasse@example.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "TUTOR", "Lasse",
+						"Tutor",
+						"+358415620252", "Virastotie 1 A 3", "00100", "Helsinki", "Male", "ei koulua", true, false,
+						subjects);
+				repository.save(user6);
 
-				appointmentRepository.save(appointment1);
+				AppUser user7 = new AppUser("miika@example.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "TUTOR", "Miika",
+						"Tutor",
+						"+358415620253", "Opintokatu 8 C 4", "00100", "Helsinki", "Male", "ei koulua", true, false,
+						subjects);
+				repository.save(user7);
+
+				AppUser user8 = new AppUser("anta@example.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "TUTOR", "Anta",
+						"Tutor",
+						"+358415620254", "Koulukatu 1 B 5", "00100", "Helsinki", "Female", "ei koulua", true, false,
+						subjects);
+				repository.save(user8);
+
+				AppUser user9 = new AppUser("sari@example.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "TUTOR", "Sari",
+						"Tutor",
+						"+358415620255", "Testikatu 1 A 3", "00100", "Helsinki", "Female", "ei koulua", true, false,
+						subjects);
+				repository.save(user9);
+
+				AppUser user10 = new AppUser("maria@example.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "TUTOR", "Maria",
+						"Tutor",
+						"+358415620256", "Viimakuja 1 C 7", "00100", "Helsinki", "Female", "ei koulua", true, false,
+						subjects);
+				repository.save(user10);
+
+				AppUser user11 = new AppUser("anna@example.com", "$2a$10$7XS4pJ32BwCucL1YFGsMLuUU/kDHw2wFSa9jR5/9YR0i0l34mSsta", "TUTOR", "Anna",
+						"Tutor",
+						"+358415620257", "Koulukatu 1 B 8", "00100", "Helsinki", "Female", "ei koulua", true, false,
+						subjects);
+				repository.save(user11);
+
+Appointment appointment1 = new Appointment();
+ 
+                appointment1.setTitle("Matematiikka tutorointi");
+                appointment1.setStart("2024-10-01T10:00:00");
+                appointment1.setEnd("2024-10-01T11:00:00");
+                Set<AppUser> users = new HashSet<>();
+                users.add(user1);
+                users.add(user2);
+ 
+                appointment1.setUsers(users);
+ 
+                appointmentRepository.save(appointment1);
+ 
 			}
 		};
 	}
