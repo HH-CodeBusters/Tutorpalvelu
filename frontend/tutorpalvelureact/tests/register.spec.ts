@@ -1,18 +1,6 @@
 /*import { test, expect } from '@playwright/test';
 
-test('navigate to sign up form', async ({ page }) => {
-    await page.goto(' https://tutorpalvelu.vercel.app/');
 
-    await page.click('text=Sign up');
-
-    await page.fill('#name', 'Testi'); 
-    await page.fill('#email', 'testi@example.com');
-    await page.fill('#password', 'Salasana123');
-    await page.click('button[type=submit]');
-    
-    await expect(page).toHaveURL(' https://tutorpalvelu.vercel.app/')
-    await expect(page.locator('text=Account created successfully')).toBeVisible();
-});
 
 
 test('sign up with missing infos', async ({ page }) => {
@@ -24,6 +12,16 @@ test('sign up with missing infos', async ({ page }) => {
     await expect(page.locator('text=Please enter a valid email address.')).toBeVisible();
     await expect(page.locator('text=Password must be at least 6 characters long.')).toBeVisible();
     await expect(page).not.toHaveURL('https://authentication-6o1.pages.dev/')
+});
+
+test('too short password', async ({ page }) => {
+    await page.goto(' https://tutorpalvelu.vercel.app/');
+
+    await page.fill('#email', 'alice@example.com');
+    await page.fill('#password', 'short');
+    await page.click('button[type=submit]');
+
+    await expect(page.locator('text=Password must be at least 6 characters long.')).toBeVisible();
 });
 
 
