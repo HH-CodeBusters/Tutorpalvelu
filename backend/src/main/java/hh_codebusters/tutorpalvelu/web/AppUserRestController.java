@@ -138,30 +138,41 @@ public class AppUserRestController {
             user.setSchool(updatedUserData.getSchool());
         }
         
-        // Update subjects if user is a tutor
-        if (user.getTutor() && updatedUserData.getSubjects() != null) {
-            Set<Subject> subjects = new HashSet<>();
-            for (Subject subject : updatedUserData.getSubjects()) {
-                if (subject.getId() != null && subject.getId() > 0) {
-                    // Load existing subject by ID
-                    Subject existingSubject = subjectRepository.findById(subject.getId()).orElse(null);
-                    if (existingSubject != null) {
-                        subjects.add(existingSubject);
-                    }
-                } else if (subject.getSubjectname() != null && !subject.getSubjectname().isEmpty()) {
-                    // Try to find existing subject by name first
-                    Subject existingSubject = subjectRepository.findBySubjectname(subject.getSubjectname());
-                    if (existingSubject != null) {
-                        subjects.add(existingSubject);
-                    } else {
-                        // Create and save new subject if it doesn't exist
-                        Subject newSubject = new Subject(subject.getSubjectname());
-                        Subject savedSubject = subjectRepository.save(newSubject);
-                        subjects.add(savedSubject);
+        // Update tutor status
+        if (updatedUserData.getTutor() != null) {
+            user.setTutor(updatedUserData.getTutor());
+        }
+        
+        // Update subjects based on tutor status
+        if (user.getTutor()) {
+            // If user is a tutor, update their subjects
+            if (updatedUserData.getSubjects() != null) {
+                Set<Subject> subjects = new HashSet<>();
+                for (Subject subject : updatedUserData.getSubjects()) {
+                    if (subject.getId() != null && subject.getId() > 0) {
+                        // Load existing subject by ID
+                        Subject existingSubject = subjectRepository.findById(subject.getId()).orElse(null);
+                        if (existingSubject != null) {
+                            subjects.add(existingSubject);
+                        }
+                    } else if (subject.getSubjectname() != null && !subject.getSubjectname().isEmpty()) {
+                        // Try to find existing subject by name first
+                        Subject existingSubject = subjectRepository.findBySubjectname(subject.getSubjectname());
+                        if (existingSubject != null) {
+                            subjects.add(existingSubject);
+                        } else {
+                            // Create and save new subject if it doesn't exist
+                            Subject newSubject = new Subject(subject.getSubjectname());
+                            Subject savedSubject = subjectRepository.save(newSubject);
+                            subjects.add(savedSubject);
+                        }
                     }
                 }
+                user.setSubjects(subjects);
             }
-            user.setSubjects(subjects);
+        } else {
+            // If user is not a tutor, clear their subjects
+            user.setSubjects(new HashSet<>());
         }
         
         AppUser savedUser = repository.save(user);

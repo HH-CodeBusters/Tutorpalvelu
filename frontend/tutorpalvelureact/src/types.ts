@@ -42,3 +42,8 @@ export interface LoginCredentials {
 	email: string;
 	password: string;
 }
+
+export interface Subject {
+  id: number;
+  subjectname: string;
+}

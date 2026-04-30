@@ -1,64 +1,40 @@
 import { useState, useEffect } from "react";
-import type { appUser } from "../types";
+import type { appUser, Subject } from "../types";
 import { useOutletContext } from "react-router";
-import {
-  Typography,
-  TextField,
-  Button,
-  Box,
-  Alert,
-  CircularProgress,
-  Card,
-  CardContent,
-  Grid,
-  Chip,
-  FormControlLabel,
-  Checkbox,
-  Autocomplete,
-  Avatar,
-  Divider,
-} from "@mui/material";
+import { Typography, TextField, Button, Box, Alert, CircularProgress, Card, CardContent, Grid, Chip, FormControlLabel, Checkbox, Autocomplete, Avatar, Divider, Select, MenuItem } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import PersonIcon from "@mui/icons-material/Person";
-import { updateUser, getAllSubjects, getAuthenticatedUser } from "../services/user";
+import { updateUser, getAllSubjects } from "../services/user";
 
-interface Subject {
-  id: number;
-  subjectname: string;
-}
-
-interface ProfileContextType extends appUser {
-  setUser?: (user: appUser) => void;
-}
+const BLANK_FORM_DATA = {
+  firstname: "",
+  lastname: "",
+  phone: "",
+  email: "",
+  address: "",
+  zipcode: "",
+  city: "",
+  gender: "",
+  school: "",
+  tutor: false,
+};
 
 export default function Profile() {
-  const user = useOutletContext<ProfileContextType | null>();
+  const context = useOutletContext<{ user: appUser; setUser: (user: appUser) => void } | null>();
+  const user = context?.user || null;
+  const setContextUser = context?.setUser;
+  
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>();
   const [success, setSuccess] = useState<string>();
   const [allSubjects, setAllSubjects] = useState<Subject[]>([]);
   const [selectedSubjects, setSelectedSubjects] = useState<Subject[]>([]);
-  const [localUser, setLocalUser] = useState<appUser | null>(user);
-
-  const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
-    phone: "",
-    email: "",
-    address: "",
-    zipcode: "",
-    city: "",
-    gender: "",
-    school: "",
-    tutor: false,
-    parent: false,
-  });
+  const [formData, setFormData] = useState(BLANK_FORM_DATA);
 
   useEffect(() => {
-    setLocalUser(user);
     if (user) {
       setFormData({
         firstname: user.firstname || "",
@@ -71,7 +47,6 @@ export default function Profile() {
         gender: user.gender || "",
         school: user.school || "",
         tutor: user.tutor || false,
-        parent: user.parent || false,
       });
 
       if (user.subjects) {
@@ -83,7 +58,6 @@ export default function Profile() {
         );
       }
 
-      // Fetch all available subjects
       getAllSubjects()
         .then(setAllSubjects)
         .catch((err) => console.error("Error fetching subjects:", err));
@@ -101,13 +75,21 @@ export default function Profile() {
       [name]: type === "checkbox" ? checked : value,
     }));
 
-    // Clear subjects if tutor is unchecked
+    // Tyhjennä aineet, jos tutor boolean false
     if (name === "tutor" && !checked) {
       setSelectedSubjects([]);
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSelectChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(undefined);
@@ -123,9 +105,9 @@ export default function Profile() {
       setSuccess("Profiili päivitetty onnistuneesti!");
       setEditMode(false);
       
-      // Update local user state with the returned user data
-      if (result) {
-        setLocalUser(result);
+      // Update parent component's user state
+      if (result && setContextUser) {
+        setContextUser(result);
         setFormData({
           firstname: result.firstname || "",
           lastname: result.lastname || "",
@@ -137,7 +119,6 @@ export default function Profile() {
           gender: result.gender || "",
           school: result.school || "",
           tutor: result.tutor || false,
-          parent: result.parent || false,
         });
 
         if (result.subjects) {
@@ -148,16 +129,6 @@ export default function Profile() {
             }))
           );
         }
-      }
-
-      // Refresh user from backend to sync context
-      try {
-        const refreshedUser = await getAuthenticatedUser();
-        if (refreshedUser) {
-          setLocalUser(refreshedUser);
-        }
-      } catch (err) {
-        console.error("Error refreshing user:", err);
       }
 
       setTimeout(() => setSuccess(undefined), 3000);
@@ -186,7 +157,6 @@ export default function Profile() {
         gender: user.gender || "",
         school: user.school || "",
         tutor: user.tutor || false,
-        parent: user.parent || false,
       });
 
       if (user.subjects) {
@@ -201,8 +171,6 @@ export default function Profile() {
     setEditMode(false);
     setError(undefined);
   };
-
-  const displayUser = localUser || user;
 
   return (
     <Box sx={{ maxWidth: 1200, margin: "0 auto", padding: 2 }}>
@@ -300,14 +268,18 @@ export default function Profile() {
                 </Grid>
 
                 <Grid size={{ xs: 12, md: 4 }}>
-                  <TextField
+                  <Select
                     fullWidth
-                    label="Sukupuoli"
                     name="gender"
                     value={formData.gender}
-                    onChange={handleInputChange}
+                    onChange={handleSelectChange}
                     variant="outlined"
-                  />
+                  >
+                    <MenuItem value="Mies">Mies</MenuItem>
+                    <MenuItem value="Nainen">Nainen</MenuItem>
+                    <MenuItem value="Muunsukupuolinen">Muunsukupuolinen</MenuItem>
+                    <MenuItem value="">-</MenuItem>
+                  </Select>
                 </Grid>
 
                 <Grid size={{ xs: 12, sm: 6, md: 4 }}>
@@ -387,12 +359,12 @@ export default function Profile() {
 
               <Divider sx={{ marginBottom: 3 }} />
 
-              {/* Role Section */}
+              {/* Tutorointiasetukset */}
               <Typography variant="h6" sx={{ marginBottom: 2 }}>
-                Rooli
+                Tutorointiasetukset
               </Typography>
-              <Grid container spacing={2} sx={{ marginBottom: 3 }}>
-                <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+              <Grid container spacing={3} sx={{ marginBottom: 3 }}>
+                <Grid size={{ xs: 12, sm: 3, md: 3 }}>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -405,52 +377,30 @@ export default function Profile() {
                   />
                 </Grid>
 
-                <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={formData.parent}
-                        name="parent"
-                        onChange={handleInputChange}
-                      />
-                    }
-                    label="Vanhempi"
-                  />
-                </Grid>
-              </Grid>
-
-              {/* Subjects Section - Only for Tutors */}
               {formData.tutor && (
-                <>
-                  <Divider sx={{ marginBottom: 3 }} />
-                  <Typography variant="h6" sx={{ marginBottom: 2 }}>
-                    Aiheet
-                  </Typography>
-                  <Grid container spacing={2} sx={{ marginBottom: 3 }}>
-                    <Grid size={{ xs: 12, md: 6 }}>
-                      <Autocomplete
-                        multiple
-                        options={allSubjects}
-                        getOptionLabel={(option) => option.subjectname}
-                        value={selectedSubjects}
-                        onChange={(_, newValue) => setSelectedSubjects(newValue)}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            label="Valitse aiheet"
-                            variant="outlined"
-                          />
-                        )}
-                        isOptionEqualToValue={(option, value) =>
-                          option.subjectname === value.subjectname
-                        }
-                      />
-                    </Grid>
+                  <Grid size={{ xs: 12, sm: 9, md: 9 }}>
+                    <Autocomplete
+                      multiple
+                      options={allSubjects}
+                      getOptionLabel={(option) => option.subjectname}
+                      value={selectedSubjects}
+                      onChange={(_, newValue) => setSelectedSubjects(newValue)}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="Valitse aiheet"
+                          variant="outlined"
+                        />
+                      )}
+                      isOptionEqualToValue={(option, value) =>
+                        option.subjectname === value.subjectname
+                      }
+                    />
                   </Grid>
-                </>
               )}
-
-              {/* Action Buttons */}
+              </Grid>
+              
+              {/* Napit */}
               <Box sx={{ display: "flex", gap: 1 }}>
                 <Button
                   type="submit"
@@ -472,7 +422,7 @@ export default function Profile() {
             </Box>
           ) : (
             <Box>
-              {/* Profile Picture Section */}
+              {/* Profiilikuva */}
               <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 3 }}>
                 <Avatar
                   sx={{
@@ -492,35 +442,35 @@ export default function Profile() {
 
               <Divider sx={{ marginBottom: 3 }} />
 
-              {/* Personal Information Section */}
+              {/* Henkilökohtaiset tiedot */}
               <Typography variant="h6" sx={{ marginBottom: 2 }}>
                 Henkilötiedot
               </Typography>
-              <Grid container spacing={2} sx={{ marginBottom: 3 }}>
-                <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+              <Grid container spacing={3} sx={{ marginBottom: 3 }}>
+                <Grid size={{ xs: 6, sm: 4, md: 4 }}>
                   <Typography variant="subtitle2" color="textSecondary">
                     Etunimi
                   </Typography>
                   <Typography variant="body1">
-                    {displayUser.firstname || "-"}
+                    {user.firstname || "-"}
                   </Typography>
                 </Grid>
 
-                <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                <Grid size={{ xs: 6, sm: 4, md: 4 }}>
                   <Typography variant="subtitle2" color="textSecondary">
                     Sukunimi
                   </Typography>
                   <Typography variant="body1">
-                    {displayUser.lastname || "-"}
+                    {user.lastname || "-"}
                   </Typography>
                 </Grid>
 
-                <Grid size={{ xs: 12, md: 4 }}>
+                <Grid size={{ xs: 12, sm: 4, md: 4 }}>
                   <Typography variant="subtitle2" color="textSecondary">
                     Sukupuoli
                   </Typography>
                   <Typography variant="body1">
-                    {displayUser.gender || "-"}
+                    {user.gender || "-"}
                   </Typography>
                 </Grid>
 
@@ -529,7 +479,7 @@ export default function Profile() {
                     Sähköposti
                   </Typography>
                   <Typography variant="body1">
-                    {displayUser.email}
+                    {user.email}
                   </Typography>
                 </Grid>
 
@@ -538,79 +488,74 @@ export default function Profile() {
                     Puhelinnumero
                   </Typography>
                   <Typography variant="body1">
-                    {displayUser.phone || "-"}
+                    {user.phone || "-"}
                   </Typography>
                 </Grid>
 
-                <Grid size={{ xs: 12, md: 4 }}>
+                <Grid size={{ xs: 12, sm: 12, md: 4 }}>
                   <Typography variant="subtitle2" color="textSecondary">
                     Koulu
                   </Typography>
                   <Typography variant="body1">
-                    {displayUser.school || "-"}
+                    {user.school || "-"}
                   </Typography>
                 </Grid>
               </Grid>
 
               <Divider sx={{ marginBottom: 3 }} />
 
-              {/* Address Section */}
+              {/* Sijaintitiedot */}
               <Typography variant="h6" sx={{ marginBottom: 2 }}>
                 Osoitetiedot
               </Typography>
               <Grid container spacing={2} sx={{ marginBottom: 3 }}>
-                <Grid size={{ xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, sm: 4 }}>
                   <Typography variant="subtitle2" color="textSecondary">
                     Osoite
                   </Typography>
                   <Typography variant="body1">
-                    {displayUser.address || "-"}
+                    {user.address || "-"}
                   </Typography>
                 </Grid>
 
-                <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+                <Grid size={{ xs: 12, sm: 4 }}>
                   <Typography variant="subtitle2" color="textSecondary">
                     Postinumero
                   </Typography>
                   <Typography variant="body1">
-                    {displayUser.zipcode || "-"}
+                    {user.zipcode || "-"}
                   </Typography>
                 </Grid>
 
-                <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+                <Grid size={{ xs: 12, sm: 4 }}>
                   <Typography variant="subtitle2" color="textSecondary">
                     Kaupunki
                   </Typography>
                   <Typography variant="body1">
-                    {displayUser.city || "-"}
+                    {user.city || "-"}
                   </Typography>
                 </Grid>
               </Grid>
 
-              <Divider sx={{ marginBottom: 3 }} />
-
-              {/* Role Section */}
-              <Typography variant="h6" sx={{ marginBottom: 2 }}>
-                Rooli
-              </Typography>
-              <Box sx={{ display: "flex", gap: 1, marginBottom: 3 }}>
-                {displayUser.tutor && <Chip label="Tutor" color="primary" />}
-                {displayUser.parent && <Chip label="Vanhempi" color="primary" />}
-                {!displayUser.tutor && !displayUser.parent && <Chip label="Opiskelija" />}
-              </Box>
-
-              {/* Subjects Section - Only for Tutors */}
-              {displayUser.tutor && displayUser.subjects && displayUser.subjects.length > 0 && (
+              {/* Tutorointitiedot */}
+              {user.tutor && user.subjects && (
                 <>
                   <Divider sx={{ marginBottom: 3 }} />
                   <Typography variant="h6" sx={{ marginBottom: 2 }}>
-                    Aiheet
+                    Opetettavat aiheet
                   </Typography>
-                  <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", marginBottom: 2 }}>
-                    {displayUser.subjects.map((subject, index) => (
-                      <Chip key={index} label={subject.subjectname} />
-                    ))}
-                  </Box>
+                  {user.subjects.length > 0 ? (
+                    <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", marginBottom: 2 }}>
+                      {user.subjects.map((subject, index) => (
+                        <Chip key={index} label={subject.subjectname} />
+                      ))}
+                    </Box>
+                  ) : (
+                    <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", marginBottom: 2, justifyContent: "center" }}>
+                      Lisää itsellesi aiheita muokkausvalikosta
+                    </Box>
+                  )}
+                  
                 </>
               )}
             </Box>

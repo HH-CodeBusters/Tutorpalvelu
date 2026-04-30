@@ -177,7 +177,7 @@ function App() {
         <Toolbar />
 
         <Container maxWidth="lg">
-          <Outlet context={user}/>
+          <Outlet context={{ user, setUser }}/>
         </Container>
       </LocalizationProvider>
     </>
